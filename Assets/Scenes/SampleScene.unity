@@ -1557,7 +1557,7 @@ Transform:
   m_GameObject: {fileID: 690245576}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.29, y: 3.73, z: 0}
+  m_LocalPosition: {x: -6.22, y: -1.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1575,7 +1575,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee6e10fb4159475185650c8452f5648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputMove: {x: 0, y: 0}
+  playerRigidbody: {fileID: 0}
   speed: 4
+  jumpSpeed: 5
+  sprintingSpeed: 0
+  playerAnimator: {fileID: 0}
+  isSprinting: 0
+  isWalking: 0
 --- !u!70 &690245581
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1608,8 +1615,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05689621, y: -1.1094733}
-  m_Size: {x: 0.48898315, y: 0.48898315}
+  m_Offset: {x: -0.08197093, y: -1.162554}
+  m_Size: {x: 0.14796877, y: 0.18111873}
   m_Direction: 0
 --- !u!70 &690245582
 CapsuleCollider2D:
@@ -1643,8 +1650,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.083500385, y: -0.51384693}
-  m_Size: {x: 0.8000746, y: 1.5323061}
+  m_Offset: {x: -0.083500385, y: -0.5020076}
+  m_Size: {x: 0.8000746, y: 1.5086274}
   m_Direction: 0
 --- !u!50 &690245583
 Rigidbody2D:
@@ -1718,7 +1725,71 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e411e747-afbc-406c-b2ef-5f79950b8604
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2ed7863a-7e2b-4d62-8358-934c7aa113a1
+    m_ActionName: Player/Look[/Mouse/delta,/Pen/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b1e4f0b4-cb60-40f8-89b7-899fe7061dfa
+    m_ActionName: Player/Fire[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7f509267-4226-456b-8ea5-0c935e68fe6c
+    m_ActionName: Player/Attack[/Keyboard/b]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dfd15550-d601-4b8b-8afc-b7037fc958af
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: afe4190d-9da2-4c4a-8ca9-7c215929f5b8
+    m_ActionName: Player/Sprinting[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4fc2477d-2555-4564-b58d-50d7d47caf61
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 995eba1d-5298-48a7-af09-d2599c370343
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fb39b4b6-50b2-4b43-96ab-578a651275bc
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 97b8a21a-32f1-4faa-b8c0-352d76afcbcc
+    m_ActionName: UI/Point[/Mouse/position,/Pen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fe02853d-2994-4381-b821-c732268392f7
+    m_ActionName: UI/Click[/Mouse/leftButton,/Pen/tip]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 38b66aaa-a6db-4a90-8207-9ad6cc8c6798
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9cb5b7b6-53bb-4724-b36f-47cf7074df15
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ef17dc4f-c0c3-4165-8b4e-259dbad663d2
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8229dd43-22ca-4a6e-aaea-dd7817fd6855
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 265f7cde-4519-4a71-a246-13f5dbf78929
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
