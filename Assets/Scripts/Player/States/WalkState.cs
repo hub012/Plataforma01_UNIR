@@ -12,7 +12,7 @@ public class WalkState : PlayerState
     public override void Enter()
     {
         base.Enter(); 
-        Debug.Log("Enter WalkState");
+       
         
         
     }

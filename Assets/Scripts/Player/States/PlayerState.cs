@@ -25,7 +25,6 @@ public class PlayerState
     isExitingState = false;
     startTime = Time.time;
     animatorController.Play(animationName);
-    Debug.Log(this);
    }
     public virtual void Exit(){
       isExitingState = true;

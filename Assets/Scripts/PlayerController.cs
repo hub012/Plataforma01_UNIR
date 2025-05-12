@@ -75,14 +75,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void OnSprinting(InputAction.CallbackContext context){
-
+    public void OnSprint(InputValue value){
+            
         Debug.Log("Sprinting");
-        if(context.performed)
-            isSprinting = true;
-
-        else if(context.canceled)
-            isSprinting = false;
+        Debug.Log(value.Get());
+       isSprinting = true;
 
     }
 
