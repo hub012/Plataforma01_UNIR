@@ -9,7 +9,6 @@ public class PlayerStateMachine
 
    public void ChangeState(PlayerState newState){
       _CurrentState.Exit();
-      Debug.Log(newState);
       _CurrentState = newState; 
       _CurrentState.Enter();
    }

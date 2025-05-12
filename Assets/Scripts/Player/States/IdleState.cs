@@ -20,7 +20,7 @@ public class IdleState : PlayerState
         if(player.inputMove != Vector2.zero) {
             playerStateMachine.ChangeState(player.walkState);
         }
-        if(player.isSprinting)
+        if(player.PlayerControls.IsSprinting)
             playerStateMachine.ChangeState(player.runState);
     }
     

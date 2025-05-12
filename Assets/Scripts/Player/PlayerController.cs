@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D playerRigidbody;
     [SerializeReference] public float speed;
     [SerializeReference] float jumpSpeed;
-    [SerializeReference] float sprintingSpeed;
+    public float SprintingSpeed{get; private set;}
     public Animator playerAnimator;
 
     public bool isSprinting;
@@ -20,13 +20,23 @@ public class PlayerController : MonoBehaviour
 
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;
-
-    public WalkState walkState;
-    public IdleState idleState;
-    public RunState runState;
+    
+    #region  Player States
+        public WalkState walkState;
+        public IdleState idleState;
+        public RunState runState;
+    #endregion
+    
+    #region Player Controls
+        public PlayerControls PlayerControls{ get; private set;}
+    #endregion
     void Start()
     {
-        sprintingSpeed = speed * 2;
+        // Inputs
+        PlayerControls = GetComponent<PlayerControls>();
+
+        //speed init
+        SprintingSpeed = speed * 2;
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         stateMachine = new PlayerStateMachine();
@@ -36,8 +46,7 @@ public class PlayerController : MonoBehaviour
         walkState = new WalkState(this, stateMachine, playerAnimator);
         runState = new RunState(this, stateMachine, playerAnimator );
         stateMachine.initStateMachine(currentState); //Inicio la maquina con todos los estados predefenidos
-
-        
+    
     }
 
     // Update is called once per frame
@@ -56,17 +65,11 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue input){
 
         inputMove = input.Get<Vector2>();
-        Debug.Log(inputMove);
       
     }
     void OnJump(InputValue value){
         
         Debug.Log("Saltando");
-        isSprinting = false;
-        while(value.isPressed){
-            isSprinting = true;
-        }
-        
     }
 
     void OnAttack(){
@@ -74,14 +77,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Attacking");
     }
 
-
-    public void OnSprint(InputValue value){
-            
-        Debug.Log("Sprinting");
-        Debug.Log(value.Get());
-       isSprinting = true;
-
-    }
 
     /// <summary>
     /// Method <c>FlipSprite</c> Hay un truco para hacer flip del player con cambiar el scale entre -1 y 1 en el eje x
