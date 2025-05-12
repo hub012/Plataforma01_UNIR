@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 inputMove;
     public Rigidbody2D playerRigidbody;
     [SerializeReference] public float speed;
-    [SerializeReference] float jumpSpeed;
+    [SerializeReference] public float jumpSpeed;
     public float SprintingSpeed{get; private set;}
     public Animator playerAnimator;
 

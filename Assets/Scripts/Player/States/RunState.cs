@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RunState : PlayerState
 {
-    public RunState(PlayerController _player, PlayerStateMachine _playerStateMachine, Animator _animatorController) 
-    : base(_player, _playerStateMachine, _animatorController, "Running")
+    public RunState(PlayerController player, PlayerStateMachine playerStateMachine, Animator animatorController) 
+    : base(player, playerStateMachine, animatorController, "Running")
     {
     }
     public override void LogicUpdate()
