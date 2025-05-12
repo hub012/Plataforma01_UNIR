@@ -33,6 +33,9 @@ public class WalkState : PlayerState
 
         if(player.PlayerControls.IsJumping)
              playerStateMachine.ChangeState(player.jumpState);
-    
+       
+        if(player.PlayerControls.IsVerticalAttacking)
+            playerStateMachine.ChangeState(player.verticalAttackState);
+
     }
 }

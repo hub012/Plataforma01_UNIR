@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
         public IdleState idleState;
         public RunState runState;
         public JumpState jumpState;
+        public VerticalAttackState verticalAttackState;
     #endregion
       #region Player Controls
         public PlayerControls PlayerControls{ get; private set;}
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour
         walkState = new WalkState(this, stateMachine, playerAnimator);
         runState = new RunState(this, stateMachine, playerAnimator);
         jumpState = new JumpState(this, stateMachine, playerAnimator);
+        verticalAttackState = new VerticalAttackState(this, stateMachine, playerAnimator);
         stateMachine.initStateMachine(currentState); //Inicio la maquina con todos los estados predefenidos
     
     }
