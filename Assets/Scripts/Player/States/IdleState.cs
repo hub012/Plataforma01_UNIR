@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IdleState : PlayerState
 {
-    public IdleState(PlayerController player, PlayerStateMachine playerStateMachine, Animator animatorController)
+    public IdleState(Player player, PlayerStateMachine playerStateMachine, Animator animatorController)
     : base(player, playerStateMachine, animatorController, "Idling") 
     {
     }
@@ -17,7 +17,7 @@ public class IdleState : PlayerState
     public override void TransitionChecks()
     {
         base.TransitionChecks();
-        if(player.inputMove != Vector2.zero) {
+        if(player.PlayerControls.inputMove != Vector2.zero) {
             playerStateMachine.ChangeState(player.walkState);
         }
         if(player.PlayerControls.IsSprinting)

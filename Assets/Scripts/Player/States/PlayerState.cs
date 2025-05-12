@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerState 
 {
-   protected PlayerController player;
+   protected Player player;
    protected PlayerStateMachine playerStateMachine;
    protected Animator animatorController;
    protected string animationName;
@@ -13,7 +13,7 @@ public class PlayerState
    protected bool isAnimationFinished;
    protected float startTime;
    
-   public PlayerState(PlayerController _player, PlayerStateMachine _playerStateMachine, Animator _animatorController, string _animationName){
+   public PlayerState(Player _player, PlayerStateMachine _playerStateMachine, Animator _animatorController, string _animationName){
     player = _player;
     playerStateMachine = _playerStateMachine;
     animatorController = _animatorController;

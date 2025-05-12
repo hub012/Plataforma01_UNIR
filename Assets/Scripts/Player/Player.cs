@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    public Vector2 inputMove;
+    
     public Rigidbody2D playerRigidbody;
     [SerializeReference] public float speed;
     [SerializeReference] public float jumpSpeed;
@@ -27,15 +27,14 @@ public class PlayerController : MonoBehaviour
         public RunState runState;
         public JumpState jumpState;
     #endregion
-    
-    #region Player Controls
+      #region Player Controls
         public PlayerControls PlayerControls{ get; private set;}
     #endregion
 
     void Start()
     {
         // Inputs
-        PlayerControls = GetComponent<PlayerControls>();
+        PlayerControls = GetComponent<PlayerControls>(); 
 
         //speed init
         SprintingSpeed = speed * 2;
@@ -65,17 +64,6 @@ public class PlayerController : MonoBehaviour
         //if (!playerHasMovementSpeed)
     }
 
-    void OnMove(InputValue input){
-
-        inputMove = input.Get<Vector2>();
-      
-    }
-    void OnAttack(){
-        
-        Debug.Log("Attacking");
-    }
-
-
     /// <summary>
     /// Method <c>FlipSprite</c> Hay un truco para hacer flip del player con cambiar el scale entre -1 y 1 en el eje x
     /// Uso Mathf.Sign para solo sacar si el valor positivo o no y usarlo en base al 1
@@ -83,9 +71,9 @@ public class PlayerController : MonoBehaviour
     /// Ejemplos: Mathf.Sign(35) = 1, Mathf.Sign(-40) = -1, Mathf.Sign(0) = 1
     /// </summary>
     void FlipSprite(){
-        if (Mathf.Abs(inputMove.x) > 0.01f)
+        if (Mathf.Abs(PlayerControls.inputMove.x) > 0.01f)
         {
-            float direction = Mathf.Sign(inputMove.x); 
+            float direction = Mathf.Sign(PlayerControls.inputMove.x); 
             transform.localScale = new Vector2(direction, 1f);
         }
     } 

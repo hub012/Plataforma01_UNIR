@@ -11,6 +11,7 @@ public class PlayerControls : MonoBehaviour
     public bool IsSprinting{get; private set;}
     public bool IsJumping{get; private set;}
 
+    public Vector2 inputMove; // se va
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -23,6 +24,10 @@ public class PlayerControls : MonoBehaviour
 
         jumpAction.performed += OnJumpPerformed;
         jumpAction.canceled += OnJumpCanceled;
+    }
+    void Start()
+    {
+       
     }
     private void OnSprintPerformed(InputAction.CallbackContext context)
     {
@@ -44,6 +49,17 @@ public class PlayerControls : MonoBehaviour
     {
         IsJumping = false;
         Debug.Log("Jump release");
+    }
+
+
+    void OnMove(InputValue input){ // se va
+
+        inputMove = input.Get<Vector2>();
+      
+    }
+    void OnAttack(){ // se va
+        
+        Debug.Log("Attacking");
     }
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JumpState : PlayerState
 {
-    public JumpState(PlayerController player, PlayerStateMachine playerStateMachine, Animator animatorController) 
+    public JumpState(Player player, PlayerStateMachine playerStateMachine, Animator animatorController) 
     : base(player, playerStateMachine, animatorController, "Jumping")
     {
     }
@@ -21,10 +21,10 @@ public class JumpState : PlayerState
         base.TransitionChecks();
 
         if(!player.PlayerControls.IsJumping){
-            if(player.inputMove == Vector2.zero)
+            if(player.PlayerControls.inputMove== Vector2.zero)
                 playerStateMachine.ChangeState(player.idleState);
 
-            if(player.inputMove != Vector2.zero)
+            if(player.PlayerControls.inputMove!= Vector2.zero)
                 playerStateMachine.ChangeState(player.walkState);
         }
     }
