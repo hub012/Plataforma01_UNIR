@@ -30,6 +30,9 @@ public class WalkState : PlayerState
   
         if(player.inputMove == Vector2.zero) 
             playerStateMachine.ChangeState(player.idleState);
+
+        if(player.PlayerControls.IsJumping)
+             playerStateMachine.ChangeState(player.jumpState);
+    
     }
-        
 }

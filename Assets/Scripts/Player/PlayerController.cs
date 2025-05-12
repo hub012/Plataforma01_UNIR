@@ -25,11 +25,13 @@ public class PlayerController : MonoBehaviour
         public WalkState walkState;
         public IdleState idleState;
         public RunState runState;
+        public JumpState jumpState;
     #endregion
     
     #region Player Controls
         public PlayerControls PlayerControls{ get; private set;}
     #endregion
+
     void Start()
     {
         // Inputs
@@ -44,7 +46,8 @@ public class PlayerController : MonoBehaviour
         // Set IdleState as the initial state
         currentState = idleState = new IdleState(this, stateMachine, playerAnimator);
         walkState = new WalkState(this, stateMachine, playerAnimator);
-        runState = new RunState(this, stateMachine, playerAnimator );
+        runState = new RunState(this, stateMachine, playerAnimator);
+        jumpState = new JumpState(this, stateMachine, playerAnimator);
         stateMachine.initStateMachine(currentState); //Inicio la maquina con todos los estados predefenidos
     
     }
@@ -67,11 +70,6 @@ public class PlayerController : MonoBehaviour
         inputMove = input.Get<Vector2>();
       
     }
-    void OnJump(InputValue value){
-        
-        Debug.Log("Saltando");
-    }
-
     void OnAttack(){
         
         Debug.Log("Attacking");
