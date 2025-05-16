@@ -19,63 +19,68 @@ public class PlayerControls : MonoBehaviour
 
     #endregion
   
-    public Vector2 inputMove; // se va
+    public Vector2 inputMove; 
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
-        sprintAction = playerInput.actions["Sprint"];
-        jumpAction = playerInput.actions["Jump"];
-        verticalAttackAction =  playerInput.actions["VerticalAttack"];
         
-        // Subscribe to performed/canceled manually
-        sprintAction.performed += OnSprintPerformed;
-        sprintAction.canceled += OnSprintCanceled;
+    }
 
-        jumpAction.performed += OnJumpPerformed;
-        jumpAction.canceled += OnJumpCanceled;
+    private void OnEnable()
+    {
+        playerInput.actions["Move"].started +=  OnMove;
+        playerInput.actions["Sprint"].started +=  OnSprint;
+        playerInput.actions["Jump"].started +=  OnSprint;
+        playerInput.actions["VerticalAttack"].started +=  OnVerticalAttack;
         
-        //+= significa subscribirse a escuchar 
-        verticalAttackAction.performed += OnVerticalAttackPerformed;
-        verticalAttackAction.canceled += OnVerticalAttackCanceled;
+
     }
-    private void OnSprintPerformed(InputAction.CallbackContext context)
+      private void OnDisable()
     {
-        IsSprinting = true;
-    }
+        playerInput.actions["Move"].canceled +=  OnMove;
+        playerInput.actions["Sprint"].canceled +=  OnSprint;
+         playerInput.actions["Jump"].canceled -=  OnJump;
+        playerInput.actions["VerticalAttack"].canceled -=  OnVerticalAttack;
 
-    private void OnSprintCanceled(InputAction.CallbackContext context)
+    }
+    private void OnSprint( InputAction.CallbackContext context)
     {
-        IsSprinting = false;
+        if(context.performed){
+            IsSprinting = true;
+        }
+        if(context.canceled){
+             IsSprinting = false;
+        }
     }
 
-    private void OnJumpPerformed(InputAction.CallbackContext context)
+
+    private void OnJump(InputAction.CallbackContext context)
     {
-        IsJumping = true;
-        Debug.Log("Jump pressed");
+        if(context.performed){
+            IsJumping = true;
+             Debug.Log("Jump pressed");
+        }
+        if(context.canceled){
+            IsJumping = false;
+            Debug.Log("Jump release");
+        }
+        
     }
 
-    private void OnJumpCanceled(InputAction.CallbackContext context)
+
+    private void OnVerticalAttack(InputAction.CallbackContext context)
     {
-        IsJumping = false;
-        Debug.Log("Jump release");
+        if(context.performed){
+            IsVerticalAttacking = true;
+        }
+        if(context.canceled){
+            IsVerticalAttacking = false;
+        }
     }
 
-    private void OnVerticalAttackPerformed(InputAction.CallbackContext context)
-    {
-        IsVerticalAttacking = true;
-        Debug.Log("Jump pressed");
-    }
+    void OnMove(InputAction.CallbackContext context){ 
 
-    private void OnVerticalAttackCanceled(InputAction.CallbackContext context)
-    {
-        IsVerticalAttacking = false;
-        Debug.Log("Jump release");
-    }
-
-
-    void OnMove(InputValue input){ // se va
-
-        inputMove = input.Get<Vector2>();
+        inputMove = context.ReadValue<Vector2>();
       
     }
    
