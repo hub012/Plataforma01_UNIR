@@ -31,8 +31,10 @@ public class WalkState : PlayerState
         if(player.PlayerControls.inputMove== Vector2.zero) 
             playerStateMachine.ChangeState(player.idleState);
 
-        if(player.PlayerControls.IsJumping)
-             playerStateMachine.ChangeState(player.jumpState);
+        if(player.PlayerControls.IsJumping){
+            playerStateMachine.ChangeState(player.jumpState);
+            player.PlayerControls.ResetJump(); // con esto evito que entre mas de una vez 
+        }
        
         if(player.PlayerControls.IsVerticalAttacking)
             playerStateMachine.ChangeState(player.verticalAttackState);

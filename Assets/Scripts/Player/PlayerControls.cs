@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,15 +68,10 @@ public class PlayerControls : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if(context.performed){
+
+        if(context.performed)
             IsJumping = true;
-             Debug.Log("Jump pressed");
-        }
-        if(context.canceled){
-            IsJumping = false;
-            Debug.Log("Jump release");
-        }
-        
+            
     }
 
 
@@ -95,6 +91,9 @@ public class PlayerControls : MonoBehaviour
       
     }
    
+   public void ResetJump(){
+        IsJumping = false;
+   }
 
 
 }

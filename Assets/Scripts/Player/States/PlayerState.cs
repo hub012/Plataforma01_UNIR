@@ -34,7 +34,9 @@ public class PlayerState
     public virtual void LogicUpdate(){
       TransitionChecks();
    }
-    public virtual void PhysicsUpdate(){}
+    public virtual void PhysicsUpdate(){
+       TransitionChecks();
+    }
     public virtual void TransitionChecks(){}
     public virtual void AnimationTrigger(){
      isAnimationFinished = true;

@@ -25,8 +25,10 @@ public class RunState : PlayerState
         if(!player.PlayerControls.IsSprinting)
             playerStateMachine.ChangeState(player.walkState);
         
-        if(player.PlayerControls.IsJumping)
-             playerStateMachine.ChangeState(player.jumpState);
+         if(player.PlayerControls.IsJumping){
+            playerStateMachine.ChangeState(player.jumpState);
+            player.PlayerControls.ResetJump(); // con esto evito que entre mas de una vez 
+        }
     }
 
 }

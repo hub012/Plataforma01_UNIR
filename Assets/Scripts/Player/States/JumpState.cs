@@ -8,12 +8,11 @@ public class JumpState : PlayerState
     : base(player, playerStateMachine, animatorController, "Jumping")
     {
     }
-    public override void LogicUpdate()
+    public override void PhysicsUpdate()
     {
-        base.LogicUpdate(); 
-      
-        player.playerRigidbody.velocity += new Vector2 (0f, 0.1f);
-      
+        base.PhysicsUpdate();
+        player.playerRigidbody.AddForce(Vector2.up * player.jumpSpeed, ForceMode2D.Impulse);
+        Debug.Log("entroe");
     }
 
     public override void TransitionChecks()
@@ -27,6 +26,9 @@ public class JumpState : PlayerState
             if(player.PlayerControls.inputMove!= Vector2.zero)
                 playerStateMachine.ChangeState(player.walkState);
         }
+        
+    
+       
     }
 
 }

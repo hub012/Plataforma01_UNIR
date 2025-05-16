@@ -23,8 +23,10 @@ public class IdleState : PlayerState
         if(player.PlayerControls.IsSprinting)
             playerStateMachine.ChangeState(player.runState);
         
-        if(player.PlayerControls.IsJumping)
+        if(player.PlayerControls.IsJumping){
             playerStateMachine.ChangeState(player.jumpState);
+            player.PlayerControls.ResetJump(); // con esto evito que entre mas de una vez 
+        }
             
         if(player.PlayerControls.IsVerticalAttacking)
             playerStateMachine.ChangeState(player.verticalAttackState);
