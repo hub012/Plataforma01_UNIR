@@ -6,9 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerControls : MonoBehaviour
 {
     private PlayerInput playerInput;
-    private InputAction sprintAction;
-    private InputAction jumpAction;
-    private InputAction verticalAttackAction;
 
     #region Controls
     public bool IsSprinting{get; private set;}
@@ -28,18 +25,32 @@ public class PlayerControls : MonoBehaviour
 
     private void OnEnable()
     {
-        playerInput.actions["Move"].started +=  OnMove;
-        playerInput.actions["Sprint"].started +=  OnSprint;
-        playerInput.actions["Jump"].started +=  OnSprint;
-        playerInput.actions["VerticalAttack"].started +=  OnVerticalAttack;
+        playerInput.actions["Move"].performed +=  OnMove;
+        playerInput.actions["Move"].canceled +=  OnMove;
+
+        playerInput.actions["Sprint"].performed +=  OnSprint;
+        playerInput.actions["Sprint"].canceled +=  OnSprint;
+
+        playerInput.actions["Jump"].performed +=  OnJump;
+        playerInput.actions["Jump"].canceled +=  OnJump;
+
+        playerInput.actions["VerticalAttack"].performed +=  OnVerticalAttack;
+        playerInput.actions["VerticalAttack"].canceled +=  OnVerticalAttack;
         
 
     }
       private void OnDisable()
     {
-        playerInput.actions["Move"].canceled +=  OnMove;
-        playerInput.actions["Sprint"].canceled +=  OnSprint;
-         playerInput.actions["Jump"].canceled -=  OnJump;
+        playerInput.actions["Move"].performed -=  OnMove;
+        playerInput.actions["Move"].canceled -=  OnMove;
+
+        playerInput.actions["Sprint"].performed -=  OnSprint;
+        playerInput.actions["Sprint"].canceled -=  OnSprint;
+
+        playerInput.actions["Jump"].performed -=  OnJump;
+        playerInput.actions["Jump"].canceled -=  OnJump;
+
+        playerInput.actions["VerticalAttack"].performed -=  OnVerticalAttack;
         playerInput.actions["VerticalAttack"].canceled -=  OnVerticalAttack;
 
     }

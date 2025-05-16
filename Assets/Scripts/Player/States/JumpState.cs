@@ -12,7 +12,7 @@ public class JumpState : PlayerState
     {
         base.LogicUpdate(); 
       
-          player.playerRigidbody.velocity += new Vector2 (0f, 0.1f);
+        player.playerRigidbody.velocity += new Vector2 (0f, 0.1f);
       
     }
 
