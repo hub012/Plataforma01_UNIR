@@ -17,7 +17,9 @@ public class PlayerControls : MonoBehaviour
 
     #endregion
   
-    public Vector2 inputMove; 
+    public Vector2 inputMove;
+    public bool JumpPressed{get; private set;}
+
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -32,8 +34,7 @@ public class PlayerControls : MonoBehaviour
         playerInput.actions["Sprint"].performed +=  OnSprint;
         playerInput.actions["Sprint"].canceled +=  OnSprint;
 
-        playerInput.actions["Jump"].performed +=  OnJump;
-        playerInput.actions["Jump"].canceled +=  OnJump;
+        playerInput.actions["Jump"].performed += ctx => JumpPressed = true;
 
         playerInput.actions["VerticalAttack"].performed +=  OnVerticalAttack;
         playerInput.actions["VerticalAttack"].canceled +=  OnVerticalAttack;
@@ -48,9 +49,6 @@ public class PlayerControls : MonoBehaviour
         playerInput.actions["Sprint"].performed -=  OnSprint;
         playerInput.actions["Sprint"].canceled -=  OnSprint;
 
-        playerInput.actions["Jump"].performed -=  OnJump;
-        playerInput.actions["Jump"].canceled -=  OnJump;
-
         playerInput.actions["VerticalAttack"].performed -=  OnVerticalAttack;
         playerInput.actions["VerticalAttack"].canceled -=  OnVerticalAttack;
 
@@ -63,15 +61,6 @@ public class PlayerControls : MonoBehaviour
         if(context.canceled){
              IsSprinting = false;
         }
-    }
-
-
-    private void OnJump(InputAction.CallbackContext context)
-    {
-
-        if(context.performed)
-            IsJumping = true;
-            
     }
 
 
@@ -92,7 +81,7 @@ public class PlayerControls : MonoBehaviour
     }
    
    public void ResetJump(){
-        IsJumping = false;
+        JumpPressed = false;
    }
 
 

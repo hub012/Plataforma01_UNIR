@@ -17,7 +17,16 @@ public class VerticalAttackState  : PlayerState
     public override void TransitionChecks()
     {
         base.TransitionChecks();
-        if(!player.PlayerControls.IsVerticalAttacking)
+         if (player.IsAirborne)
+            return;
+
+        if(player.IsGrounded() && player.PlayerControls.JumpPressed)
+        {
+            playerStateMachine.ChangeState(player.jumpState);
+            player.PlayerControls.ResetJump();
+            return;
+        }
+        if (!player.PlayerControls.IsVerticalAttacking)
             playerStateMachine.ChangeState(playerStateMachine._PreviousState);
                
 

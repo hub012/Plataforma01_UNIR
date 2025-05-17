@@ -19,7 +19,16 @@ public class RunState : PlayerState
     public override void TransitionChecks()
     {
         base.TransitionChecks();
-        if(player.PlayerControls.inputMove == Vector2.zero)
+         if (player.IsAirborne)
+            return;
+
+           if(player.IsGrounded() &&  player.PlayerControls.JumpPressed)
+        {
+            playerStateMachine.ChangeState(player.jumpState);
+            player.PlayerControls.ResetJump();
+            return;
+        }
+        if (player.PlayerControls.inputMove == Vector2.zero)
             playerStateMachine.ChangeState(player.idleState);
 
         if(!player.PlayerControls.IsSprinting)

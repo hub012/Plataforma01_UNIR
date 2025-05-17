@@ -4,31 +4,55 @@ using UnityEngine;
 
 public class JumpState : PlayerState
 {
-    public JumpState(Player player, PlayerStateMachine playerStateMachine, Animator animatorController) 
+    float timer;
+    float timerLimit = 0.3f;
+    private bool hasJumped = false;
+    public JumpState(Player player, PlayerStateMachine playerStateMachine, Animator animatorController)
     : base(player, playerStateMachine, animatorController, "Jumping")
     {
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        timer = 0;
+        hasJumped = false;
+        player.IsAirborne = true;
+    }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+        timer += Time.deltaTime;
+
     }
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        player.playerRigidbody.AddForce(Vector2.up * player.jumpSpeed, ForceMode2D.Impulse);
-        Debug.Log("entroe");
+        if (!hasJumped)
+        {
+            hasJumped = true;
+            player.playerRigidbody.velocity = new Vector2(player.playerRigidbody.velocity.x, 0);
+            player.playerRigidbody.AddForce(Vector2.up * player.jumpSpeed, ForceMode2D.Impulse);
+
+        }
+
     }
 
     public override void TransitionChecks()
     {
         base.TransitionChecks();
 
-        if(!player.PlayerControls.IsJumping){
-            if(player.PlayerControls.inputMove== Vector2.zero)
+        if (timer >= timerLimit && player.playerRigidbody.velocity.y <= 0f)
+        {
+            if (player.IsGrounded())
+            {
+                player.IsAirborne = false;
                 playerStateMachine.ChangeState(player.idleState);
-
-            if(player.PlayerControls.inputMove!= Vector2.zero)
-                playerStateMachine.ChangeState(player.walkState);
+            }
         }
-        
-    
-       
+
+
     }
 
 }

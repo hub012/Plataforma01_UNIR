@@ -12,12 +12,15 @@ public class Player : MonoBehaviour
     public Rigidbody2D playerRigidbody;
     [SerializeReference] public float speed;
     [SerializeReference] public float jumpSpeed;
-    public float SprintingSpeed{get; private set;}
+    [SerializeField] private LayerMask groundLayer;
+
+    public float SprintingSpeed { get; private set; }
     public Animator playerAnimator;
 
     public bool isSprinting;
     public bool isWalking;
     private float distanceToGround;
+    public bool IsAirborne { get; set; } 
 
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;
@@ -59,12 +62,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Jump "+ PlayerControls.IsJumping);
+        Debug.Log("Jump " + PlayerControls.IsJumping);
         stateMachine?._CurrentState?.LogicUpdate();
         // Detectar si el jugador tiene la mas minima velocidad y si la ultima velocidad que tuvo fue negativa o positiva
         //bool playerHasMovementSpeed = Mathf.Abs(playerRigidbody.velocity.x) > Mathf.Epsilon;
-        
+
         FlipSprite();
+        Debug.Log(IsGrounded());
+        Debug.Log(distanceToGround);
 
         
         //if (!playerHasMovementSpeed)
@@ -85,10 +90,16 @@ public class Player : MonoBehaviour
             float direction = Mathf.Sign(PlayerControls.inputMove.x); 
             transform.localScale = new Vector2(direction, 1f);
         }
-    } 
-    
-    public bool IsGrounded(){
-        
-       return Physics2D.Raycast(transform.position, -Vector2.up, distanceToGround + 0.1f);
     }
+
+    public bool IsGrounded()
+    {
+        float rayLength = distanceToGround + 2f;
+        Vector2 origin = transform.position;
+        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, rayLength, groundLayer);
+
+        Debug.DrawRay(origin, Vector2.down * rayLength, Color.red); // Ver en Scene
+
+        return hit.collider != null;
+     }
 }
