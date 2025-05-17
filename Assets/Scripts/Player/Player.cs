@@ -17,18 +17,19 @@ public class Player : MonoBehaviour
 
     public bool isSprinting;
     public bool isWalking;
+    private float distanceToGround;
 
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;
     
-    #region  Player States
+    #region Player States
         public WalkState walkState;
         public IdleState idleState;
         public RunState runState;
         public JumpState jumpState;
         public VerticalAttackState verticalAttackState;
     #endregion
-      #region Player Controls
+    #region Player Controls
         public PlayerControls PlayerControls{ get; private set;}
     #endregion
 
@@ -43,6 +44,8 @@ public class Player : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         stateMachine = new PlayerStateMachine();
 
+        distanceToGround = GetComponent<Collider2D>().bounds.extents.y;
+
         // Set IdleState as the initial state
         currentState = idleState = new IdleState(this, stateMachine, playerAnimator);
         walkState = new WalkState(this, stateMachine, playerAnimator);
@@ -56,6 +59,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Jump "+ PlayerControls.IsJumping);
         stateMachine?._CurrentState?.LogicUpdate();
         // Detectar si el jugador tiene la mas minima velocidad y si la ultima velocidad que tuvo fue negativa o positiva
         //bool playerHasMovementSpeed = Mathf.Abs(playerRigidbody.velocity.x) > Mathf.Epsilon;
@@ -64,6 +68,9 @@ public class Player : MonoBehaviour
 
         
         //if (!playerHasMovementSpeed)
+    }
+    void FixedUpdate(){
+        stateMachine?._CurrentState?.PhysicsUpdate();
     }
 
     /// <summary>
@@ -79,4 +86,9 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector2(direction, 1f);
         }
     } 
+    
+    public bool IsGrounded(){
+        
+       return Physics2D.Raycast(transform.position, -Vector2.up, distanceToGround + 0.1f);
+    }
 }
