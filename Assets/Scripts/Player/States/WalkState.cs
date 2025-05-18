@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player.States
 {
-    public class WalkState : PlayerState
+    public class WalkState : State
     {
     
         public WalkState(global::Player.Player player, StateMachine stateMachine, Animator animatorController)

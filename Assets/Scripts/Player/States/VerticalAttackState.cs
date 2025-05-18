@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player.States
 {
-    public class VerticalAttackState  : PlayerState
+    public class VerticalAttackState  : State
     {
         public VerticalAttackState(global::Player.Player player, StateMachine stateMachine, Animator animatorController) 
             : base(player, stateMachine, animatorController, "VerticalAttacking")

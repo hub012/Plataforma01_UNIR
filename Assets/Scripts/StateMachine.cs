@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class StateMachine 
 {
-   public PlayerState CurrentState{ get; private set;}
-   public PlayerState PreviousState{ get; private set;}
+   public State CurrentState{ get; private set;}
+   public State PreviousState{ get; private set;}
 
 
-   public void ChangeState(PlayerState newState)
+   public void ChangeState(State newState)
    {
       PreviousState = CurrentState;
       CurrentState.Exit();
@@ -17,7 +17,7 @@ public class StateMachine
       CurrentState.Enter();
    }
 
-   public void InitStateMachine(PlayerState initalState){
+   public void InitStateMachine(State initalState){
       CurrentState =PreviousState = initalState; 
       CurrentState.Enter();
    }
