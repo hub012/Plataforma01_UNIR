@@ -4,8 +4,8 @@ namespace Player.States
 {
     public class PlayerState 
     {
-        protected global::Player.Player player;
-        protected StateMachine StateMachine;
+        protected Player player;
+        protected PlayerStateMachine PlayerStateMachine;
         protected Animator animatorController;
         protected string animationName;
 
@@ -13,9 +13,9 @@ namespace Player.States
         protected bool isAnimationFinished;
         protected float startTime;
    
-        public PlayerState(global::Player.Player _player, StateMachine stateMachine, Animator _animatorController, string _animationName){
+        public PlayerState(Player _player, PlayerStateMachine playerStateMachine, Animator _animatorController, string _animationName){
             player = _player;
-            StateMachine = stateMachine;
+            PlayerStateMachine = playerStateMachine;
             animatorController = _animatorController;
             animationName = _animationName;
         }

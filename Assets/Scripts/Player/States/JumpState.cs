@@ -7,8 +7,8 @@ namespace Player.States
         float timer;
         float timerLimit = 0.3f;
         private bool hasJumped = false;
-        public JumpState(global::Player.Player player, StateMachine stateMachine, Animator animatorController)
-            : base(player, stateMachine, animatorController, "Jumping")
+        public JumpState(Player player, PlayerStateMachine playerStateMachine, Animator animatorController)
+            : base(player, playerStateMachine, animatorController, "Jumping")
         {
         }
 
@@ -48,7 +48,7 @@ namespace Player.States
                 if (player.IsGrounded())
                 {
                     player.IsAirborne = false;
-                    StateMachine.ChangeState(player.idleState);
+                    PlayerStateMachine.ChangeState(player.idleState);
                 }
             }
 

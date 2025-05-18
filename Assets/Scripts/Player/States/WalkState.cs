@@ -5,8 +5,8 @@ namespace Player.States
     public class WalkState : PlayerState
     {
     
-        public WalkState(global::Player.Player player, StateMachine stateMachine, Animator animatorController)
-            : base(player, stateMachine, animatorController, "Walking") 
+        public WalkState(Player player, PlayerStateMachine playerStateMachine, Animator animatorController)
+            : base(player, playerStateMachine, animatorController, "Walking") 
         {   
         }
 
@@ -33,21 +33,21 @@ namespace Player.States
 
             if(player.IsGrounded() &&  player.PlayerControls.JumpPressed)
             {
-                StateMachine.ChangeState(player.jumpState);
+                PlayerStateMachine.ChangeState(player.jumpState);
                 player.PlayerControls.ResetJump();
                 return;
             }
   
             if (player.PlayerControls.inputMove == Vector2.zero)
-                StateMachine.ChangeState(player.idleState);
+                PlayerStateMachine.ChangeState(player.idleState);
 
             if(player.PlayerControls.IsJumping){
-                StateMachine.ChangeState(player.jumpState);
+                PlayerStateMachine.ChangeState(player.jumpState);
                 player.PlayerControls.ResetJump(); // con esto evito que entre mas de una vez 
             }
        
             if(player.PlayerControls.IsVerticalAttacking)
-                StateMachine.ChangeState(player.verticalAttackState);
+                PlayerStateMachine.ChangeState(player.verticalAttackState);
 
         }
     }

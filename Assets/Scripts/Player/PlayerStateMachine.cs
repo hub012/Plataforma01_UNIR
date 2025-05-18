@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Player.States;
 using UnityEngine;
 
-public class StateMachine 
+public class PlayerStateMachine 
 {
    public PlayerState CurrentState{ get; private set;}
    public PlayerState PreviousState{ get; private set;}

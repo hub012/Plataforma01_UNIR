@@ -4,8 +4,8 @@ namespace Player.States
 {
     public class RunState : PlayerState
     {
-        public RunState(global::Player.Player player, StateMachine stateMachine, Animator animatorController) 
-            : base(player, stateMachine, animatorController, "Running")
+        public RunState(Player player, PlayerStateMachine playerStateMachine, Animator animatorController) 
+            : base(player, playerStateMachine, animatorController, "Running")
         {
         }
         public override void LogicUpdate()
@@ -24,18 +24,18 @@ namespace Player.States
 
             if(player.IsGrounded() &&  player.PlayerControls.JumpPressed)
             {
-                StateMachine.ChangeState(player.jumpState);
+                PlayerStateMachine.ChangeState(player.jumpState);
                 player.PlayerControls.ResetJump();
                 return;
             }
             if (player.PlayerControls.inputMove == Vector2.zero)
-                StateMachine.ChangeState(player.idleState);
+                PlayerStateMachine.ChangeState(player.idleState);
 
             if(!player.PlayerControls.IsSprinting)
-                StateMachine.ChangeState(player.walkState);
+                PlayerStateMachine.ChangeState(player.walkState);
         
             if(player.PlayerControls.IsJumping){
-                StateMachine.ChangeState(player.jumpState);
+                PlayerStateMachine.ChangeState(player.jumpState);
                 player.PlayerControls.ResetJump(); // con esto evito que entre mas de una vez 
             }
         }

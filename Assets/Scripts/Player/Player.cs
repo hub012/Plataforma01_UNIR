@@ -19,7 +19,7 @@ namespace Player
         private float distanceToGround;
         public bool IsAirborne { get; set; } 
 
-        private StateMachine stateMachine;
+        private PlayerStateMachine _playerStateMachine;
         private PlayerState currentState;
     
         #region Player States
@@ -42,17 +42,17 @@ namespace Player
             SprintingSpeed = speed * 2;
             playerRigidbody = GetComponent<Rigidbody2D>();
             playerAnimator = GetComponent<Animator>();
-            stateMachine = new StateMachine();
+            _playerStateMachine = new PlayerStateMachine();
 
             distanceToGround = GetComponent<Collider2D>().bounds.extents.y;
 
             // Set IdleState as the initial state
-            currentState = idleState = new IdleState(this, stateMachine, playerAnimator);
-            walkState = new WalkState(this, stateMachine, playerAnimator);
-            runState = new RunState(this, stateMachine, playerAnimator);
-            jumpState = new JumpState(this, stateMachine, playerAnimator);
-            verticalAttackState = new VerticalAttackState(this, stateMachine, playerAnimator);
-            stateMachine.InitStateMachine(currentState); //Inicio la maquina con todos los estados predefenidos
+            currentState = idleState = new IdleState(this, _playerStateMachine, playerAnimator);
+            walkState = new WalkState(this, _playerStateMachine, playerAnimator);
+            runState = new RunState(this, _playerStateMachine, playerAnimator);
+            jumpState = new JumpState(this, _playerStateMachine, playerAnimator);
+            verticalAttackState = new VerticalAttackState(this, _playerStateMachine, playerAnimator);
+            _playerStateMachine.InitStateMachine(currentState); //Inicio la maquina con todos los estados predefenidos
     
         }
 
@@ -60,7 +60,7 @@ namespace Player
         void Update()
         {
             Debug.Log("Jump " + PlayerControls.JumpPressed);
-            stateMachine?.CurrentState?.LogicUpdate();
+            _playerStateMachine?.CurrentState?.LogicUpdate();
             // Detectar si el jugador tiene la mas minima velocidad y si la ultima velocidad que tuvo fue negativa o positiva
             //bool playerHasMovementSpeed = Mathf.Abs(playerRigidbody.velocity.x) > Mathf.Epsilon;
 
@@ -72,7 +72,7 @@ namespace Player
             //if (!playerHasMovementSpeed)
         }
         void FixedUpdate(){
-            stateMachine?.CurrentState?.PhysicsUpdate();
+            _playerStateMachine?.CurrentState?.PhysicsUpdate();
         }
 
         /// <summary>
