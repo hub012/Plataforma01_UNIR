@@ -6,15 +6,12 @@ namespace Enemy
 {
     public class Enemy: MonoBehaviour
     {
-        // que necesitmaos?
-        // Vida
-        //vanim
-        // rigid vobodyh
-        //
+        protected int Life; //TODO estudiar posibiliad de hacerla property
         protected Rigidbody2D Rb;
         protected Animator Animator;
         #region Enemy States
             protected IdleState IdleState;
+            protected PatrolState PatrolState;
         #endregion
         protected EnemyStateMachine EnemyStateMachine;
         protected EnemyState CurrentState;
@@ -27,6 +24,7 @@ namespace Enemy
             
             EnemyStateMachine = new EnemyStateMachine();
             CurrentState = IdleState =  new IdleState(this, EnemyStateMachine, Animator);
+            PatrolState =  new PatrolState(this, EnemyStateMachine, Animator);
             EnemyStateMachine.InitStateMachine(CurrentState);
         }
     }
