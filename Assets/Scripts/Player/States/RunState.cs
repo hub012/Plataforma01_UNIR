@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player.States
 {
-    public class RunState : State
+    public class RunState : PlayerState
     {
         public RunState(global::Player.Player player, StateMachine stateMachine, Animator animatorController) 
             : base(player, stateMachine, animatorController, "Running")

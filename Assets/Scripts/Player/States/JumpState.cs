@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player.States
 {
-    public class JumpState : State
+    public class JumpState : PlayerState
     {
         float timer;
         float timerLimit = 0.3f;

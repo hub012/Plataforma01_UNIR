@@ -20,7 +20,7 @@ namespace Player
         public bool IsAirborne { get; set; } 
 
         private StateMachine stateMachine;
-        private State currentState;
+        private PlayerState currentState;
     
         #region Player States
         public WalkState walkState;

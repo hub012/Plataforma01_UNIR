@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player.States
 {
-    public class IdleState : State
+    public class IdleState : PlayerState
     {
         public IdleState(global::Player.Player player, StateMachine stateMachine, Animator animatorController)
             : base(player, stateMachine, animatorController, "Idling") 
