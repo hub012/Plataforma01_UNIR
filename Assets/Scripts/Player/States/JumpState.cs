@@ -32,8 +32,8 @@ public class JumpState : PlayerState
         if (!hasJumped)
         {
             hasJumped = true;
-            player.playerRigidbody.velocity = new Vector2(player.playerRigidbody.velocity.x, 0);
-            player.playerRigidbody.AddForce(Vector2.up * player.jumpSpeed, ForceMode2D.Impulse);
+            player.playerRigidbody.velocity = new Vector2(player.playerRigidbody.velocity.x, player.jumpSpeed);
+            //player.playerRigidbody.AddForce(Vector2.up * player.jumpSpeed, ForceMode2D.Impulse);
 
         }
 

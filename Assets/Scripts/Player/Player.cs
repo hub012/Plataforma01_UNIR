@@ -62,14 +62,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Jump " + PlayerControls.IsJumping);
+        Debug.Log("Jump " + PlayerControls.JumpPressed);
         stateMachine?._CurrentState?.LogicUpdate();
         // Detectar si el jugador tiene la mas minima velocidad y si la ultima velocidad que tuvo fue negativa o positiva
         //bool playerHasMovementSpeed = Mathf.Abs(playerRigidbody.velocity.x) > Mathf.Epsilon;
 
         FlipSprite();
-        Debug.Log(IsGrounded());
-        Debug.Log(distanceToGround);
+        Debug.Log("Este en el suelo "+IsGrounded());
+        Debug.Log("Distancia al suelo: "+distanceToGround);
 
         
         //if (!playerHasMovementSpeed)
@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
 
     public bool IsGrounded()
     {
-        float rayLength = distanceToGround + 2f;
+        float rayLength = distanceToGround + .6f;
         Vector2 origin = transform.position;
         RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, rayLength, groundLayer);
 
