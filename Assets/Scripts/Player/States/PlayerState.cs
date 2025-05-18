@@ -1,44 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState 
+namespace Player.States
 {
-   protected Player player;
-   protected PlayerStateMachine playerStateMachine;
-   protected Animator animatorController;
-   protected string animationName;
+    public class PlayerState 
+    {
+        protected global::Player.Player player;
+        protected StateMachine StateMachine;
+        protected Animator animatorController;
+        protected string animationName;
 
-   protected bool isExitingState;
-   protected bool isAnimationFinished;
-   protected float startTime;
+        protected bool isExitingState;
+        protected bool isAnimationFinished;
+        protected float startTime;
    
-   public PlayerState(Player _player, PlayerStateMachine _playerStateMachine, Animator _animatorController, string _animationName){
-    player = _player;
-    playerStateMachine = _playerStateMachine;
-    animatorController = _animatorController;
-    animationName = _animationName;
-   }
+        public PlayerState(global::Player.Player _player, StateMachine stateMachine, Animator _animatorController, string _animationName){
+            player = _player;
+            StateMachine = stateMachine;
+            animatorController = _animatorController;
+            animationName = _animationName;
+        }
 
-   public virtual void Enter(){
-    isAnimationFinished = false;
-    isExitingState = false;
-    startTime = Time.time;
-    animatorController.Play(animationName);
-   }
-    public virtual void Exit(){
-      isExitingState = true;
-      if(!isAnimationFinished) isAnimationFinished = true;
-      animatorController.Play(animationName);
-   }
-    public virtual void LogicUpdate(){
-      TransitionChecks();
-   }
-    public virtual void PhysicsUpdate(){
-       TransitionChecks();
+        public virtual void Enter(){
+            isAnimationFinished = false;
+            isExitingState = false;
+            startTime = Time.time;
+            animatorController.Play(animationName);
+        }
+        public virtual void Exit(){
+            isExitingState = true;
+            if(!isAnimationFinished) isAnimationFinished = true;
+            animatorController.Play(animationName);
+        }
+        public virtual void LogicUpdate(){
+            TransitionChecks();
+        }
+        public virtual void PhysicsUpdate(){
+            TransitionChecks();
+        }
+        public virtual void TransitionChecks(){}
+        public virtual void AnimationTrigger(){
+            isAnimationFinished = true;
+        }
     }
-    public virtual void TransitionChecks(){}
-    public virtual void AnimationTrigger(){
-     isAnimationFinished = true;
-   }
 }

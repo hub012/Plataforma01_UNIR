@@ -1,58 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpState : PlayerState
+namespace Player.States
 {
-    float timer;
-    float timerLimit = 0.3f;
-    private bool hasJumped = false;
-    public JumpState(Player player, PlayerStateMachine playerStateMachine, Animator animatorController)
-    : base(player, playerStateMachine, animatorController, "Jumping")
+    public class JumpState : PlayerState
     {
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-        timer = 0;
-        hasJumped = false;
-        player.IsAirborne = true;
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-        timer += Time.deltaTime;
-
-    }
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-        if (!hasJumped)
+        float timer;
+        float timerLimit = 0.3f;
+        private bool hasJumped = false;
+        public JumpState(global::Player.Player player, StateMachine stateMachine, Animator animatorController)
+            : base(player, stateMachine, animatorController, "Jumping")
         {
-            hasJumped = true;
-            player.playerRigidbody.velocity = new Vector2(player.playerRigidbody.velocity.x, player.jumpSpeed);
-            //player.playerRigidbody.AddForce(Vector2.up * player.jumpSpeed, ForceMode2D.Impulse);
-
         }
 
-    }
-
-    public override void TransitionChecks()
-    {
-        base.TransitionChecks();
-
-        if (timer >= timerLimit && player.playerRigidbody.velocity.y <= 0f)
+        public override void Enter()
         {
-            if (player.IsGrounded())
+            base.Enter();
+            timer = 0;
+            hasJumped = false;
+            player.IsAirborne = true;
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+            timer += Time.deltaTime;
+
+        }
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+            if (!hasJumped)
             {
-                player.IsAirborne = false;
-                playerStateMachine.ChangeState(player.idleState);
+                hasJumped = true;
+                player.playerRigidbody.velocity = new Vector2(player.playerRigidbody.velocity.x, player.jumpSpeed);
+                //player.playerRigidbody.AddForce(Vector2.up * player.jumpSpeed, ForceMode2D.Impulse);
+
             }
+
         }
 
+        public override void TransitionChecks()
+        {
+            base.TransitionChecks();
+
+            if (timer >= timerLimit && player.playerRigidbody.velocity.y <= 0f)
+            {
+                if (player.IsGrounded())
+                {
+                    player.IsAirborne = false;
+                    StateMachine.ChangeState(player.idleState);
+                }
+            }
+
+
+        }
 
     }
-
 }
