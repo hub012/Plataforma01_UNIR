@@ -4,7 +4,7 @@ namespace Enemy.States
 {
     public class EnemyState
     {
-        protected Enemy Enemy;
+        protected Enemy enemy;
         protected EnemyStateMachine EnemyStateMachine;
         protected Animator AnimatorController;
         protected string AnimationName;
@@ -13,8 +13,8 @@ namespace Enemy.States
         protected bool isAnimationFinished;
         protected float startTime;
 
-        protected EnemyState(Enemy enemy, EnemyStateMachine enemyStateMachine, Animator animatorController, string animationName){
-            Enemy = enemy;
+        protected EnemyState(Enemy _enemy, EnemyStateMachine enemyStateMachine, Animator animatorController, string animationName){
+            enemy = _enemy;
             EnemyStateMachine = enemyStateMachine;
             AnimatorController = animatorController;
             AnimationName = animationName;

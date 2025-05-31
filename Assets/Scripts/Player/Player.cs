@@ -13,9 +13,7 @@ namespace Player
 
         public float SprintingSpeed { get; private set; }
         public Animator playerAnimator;
-
-        public bool isSprinting;
-        public bool isWalking;
+        
         private float distanceToGround;
         public bool IsAirborne { get; set; } 
 
