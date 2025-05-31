@@ -2449,6 +2449,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: damageColor.b
+      value: 0.46751517
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: damageColor.g
+      value: 0.46751517
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: damageColor.r
+      value: 0.9622642
+      objectReference: {fileID: 0}
     - target: {fileID: 4998673256083427934, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2509,6 +2521,18 @@ PrefabInstance:
     - target: {fileID: 7547678195548248768, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: damageColor.b
+      value: 0.28057137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: damageColor.g
+      value: 0.28057137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: damageColor.r
+      value: 0.9150943
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

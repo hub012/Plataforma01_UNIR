@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Enemy.States;
 using UnityEngine;
 
@@ -11,6 +12,10 @@ namespace Enemy
         [SerializeField] private float attackRange = 1.5f;
         [SerializeField] private int attackDamage = 25;
         [SerializeField] private float attackCooldown = 2f;
+        
+        [Header("Damage Effects")]
+        [SerializeField] private float flashDuration = 0.15f;
+        [SerializeField] private Color damageColor = Color.red;
         
         // Goblin-specific properties
         public float AggroRange => aggroRange;
@@ -27,17 +32,31 @@ namespace Enemy
         public ChaseState ChaseState { get; private set; }
         public AttackState AttackState { get; private set; }
         
+        // Damage effect variables
+        private SpriteRenderer spriteRenderer;
+        private Color originalColor;
+        private bool isFlashing = false;
         private float lastAttackTime;
+        
 
         protected override void Awake()
         {
             base.Awake();
+            spriteRenderer = GetComponent<SpriteRenderer>();
             
             // Find player in scene (you might want to use a more sophisticated method)
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj != null)
             {
                 PlayerTarget = playerObj.transform;
+            }
+            
+            if (spriteRenderer != null)
+            {
+                originalColor = spriteRenderer.color;
+                // Ensure original color has full alpha
+                originalColor.a = 1f;
+                spriteRenderer.color = originalColor;
             }
         }
 
@@ -142,20 +161,50 @@ namespace Enemy
         {
             base.TakeDamage(damage);
             
-            // Goblin-specific damage reaction
-           // Debug.Log($"Goblin takes {damage} damage! Remaining health: {Life}");
+            Debug.Log($"Goblin takes {damage} damage! Remaining health: {Life}");
             
-            // Could add damage animation, sound effects, etc.
-            // Example: Play hurt animation
-            // Animator.SetTrigger("Hurt");
+            // Start damage flash effect
+            if (!isFlashing && spriteRenderer != null)
+            {
+                StartCoroutine(DamageFlash());
+            }
+            
+            // ... rest of your existing TakeDamage code ...
+        }
+        private IEnumerator DamageFlash()
+        {
+            if (spriteRenderer == null) yield break;
+            
+            isFlashing = true;
+            
+            // Store current color as backup
+            Color backupColor = spriteRenderer.color;
+            
+            // Create damage color with full alpha
+            Color flashColor = damageColor;
+            flashColor.a = 1f; // Ensure full opacity
+            
+            // Flash to damage color
+            spriteRenderer.color = flashColor;
+            yield return new WaitForSeconds(flashDuration);
+            
+            // Return to original color with full alpha
+            originalColor.a = 1f; // Double-check alpha
+            spriteRenderer.color = originalColor;
+            
+            isFlashing = false;
         }
 
         protected override void Die()
         {
-            //Debug.Log("Goblin has been defeated!");
+            Debug.Log("Goblin has been defeated!");
             
-            // Goblin-specific death behavior
-            // Could drop items, play death animation, add score, etc.
+            // Stop any ongoing flash coroutine and restore color
+            StopAllCoroutines();
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = originalColor;
+            }
             
             base.Die();
         }

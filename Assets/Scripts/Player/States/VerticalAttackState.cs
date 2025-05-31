@@ -133,7 +133,7 @@ namespace Player.States
             }
     
             // Show attack area (red circle in Scene view)
-            DebugExtension.DebugWireSphere(attackPosition, Color.red, attackRange, 0.5f);
+            
                 
         }
     }

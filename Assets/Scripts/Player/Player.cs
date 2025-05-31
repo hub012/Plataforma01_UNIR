@@ -1,3 +1,4 @@
+using System.Collections;
 using Player.States;
 using UnityEngine;
 
@@ -18,10 +19,15 @@ namespace Player
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private float groundCheckDistance = 0.1f;
         
+        [Header("Damage Effects")]
+        [SerializeField] private float flashDuration = 0.15f;
+        [SerializeField] private Color damageColor = Color.red;
+        
         // Components
         public Rigidbody2D playerRigidbody { get; private set; }
         public Animator playerAnimator { get; private set; }
         public PlayerControls PlayerControls { get; private set; }
+        private SpriteRenderer spriteRenderer;
         
         // Properties
         public float SprintingSpeed => speed * sprintMultiplier;
@@ -37,13 +43,17 @@ namespace Player
         public JumpState jumpState { get; private set; }
         public VerticalAttackState verticalAttackState { get; private set; }
         #endregion
-
+        
+        // Damage effect variables
+        private Color originalColor;
+        private bool isFlashing = false;
         void Awake()
         {
             // Get components
             playerRigidbody = GetComponent<Rigidbody2D>();
             playerAnimator = GetComponent<Animator>();
             PlayerControls = GetComponent<PlayerControls>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
             
             // Initialize state machine
             _playerStateMachine = new PlayerStateMachine();
@@ -53,6 +63,13 @@ namespace Player
             
             //Initialize health
             currentHealth = maxHealth;
+            
+            if (spriteRenderer != null)
+            {
+                originalColor = spriteRenderer.color;
+                originalColor.a = 1f;
+                spriteRenderer.color = originalColor;
+            }
         }
 
         void Start()
@@ -114,11 +131,40 @@ namespace Player
         {
             _playerStateMachine.CurrentState?.AnimationTrigger();
         }
+        private IEnumerator DamageFlash()
+        {
+            if (spriteRenderer == null) yield break;
+            
+            isFlashing = true;
+            
+            // Store current color as backup
+            Color backupColor = spriteRenderer.color;
+            
+            // Create damage color with full alpha
+            Color flashColor = damageColor;
+            flashColor.a = 1f; // Ensure full opacity
+            
+            // Flash to damage color
+            spriteRenderer.color = flashColor;
+            yield return new WaitForSeconds(flashDuration);
+            
+            // Return to original color with full alpha
+            originalColor.a = 1f; // Double-check alpha
+            spriteRenderer.color = originalColor;
+            
+            isFlashing = false;
+        }
         public void TakeDamage(int damage)
         {
             currentHealth -= damage;
             Debug.Log($"Player health: {currentHealth}/{maxHealth}");
-    
+
+            // Start damage flash effect
+            if (!isFlashing)
+            {
+                StartCoroutine(DamageFlash());
+            }
+
             if (currentHealth <= 0)
             {
                 Debug.Log("Player died!");
