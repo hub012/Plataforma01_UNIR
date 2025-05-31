@@ -6,10 +6,10 @@ namespace Enemy.States
     {
         private Goblin goblin;
         private bool hasAttacked = false;
-        private float attackDuration = 1f; // How long the attack state lasts
+        private float attackDuration = .9F;
 
         public AttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, Animator animatorController) 
-            : base(enemy, enemyStateMachine, animatorController, "Attacking") // Assuming you have an attack animation
+            : base(enemy, enemyStateMachine, animatorController, "Attacking")
         {
             goblin = enemy as Goblin;
         }
@@ -35,24 +35,22 @@ namespace Enemy.States
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            
-            // Attack midway through the state (you could also use animation events)
-            if (!hasAttacked && startTime + (attackDuration * 0.5f) <= Time.time)
-            {
-                PerformAttack();
-            }
+            // Attacking using animation event
         }
 
         private void PerformAttack()
         {
             hasAttacked = true;
-            goblin?.Attack();
+            Debug.Log("Goblin attacks!");
+           // goblin?.Attack();
         }
 
         public override void TransitionChecks()
         {
             base.TransitionChecks();
-            
+            float timeInState = Time.time - startTime;
+            Debug.Log($"[AttackState] Time: {timeInState:F2}s / {attackDuration}s | Should exit: {timeInState >= attackDuration}");
+
             // Exit attack state after duration
             if (Time.time - startTime >= attackDuration)
             {
@@ -80,6 +78,7 @@ namespace Enemy.States
                 }
                 else
                 {
+                    Debug.Log("[AttackState] TRANSITIONING TO IDLE STATE (COOLDOWN)");
                     // Wait (attack cooldown) - go to idle briefly
                     EnemyStateMachine.ChangeState(enemy.IdleState);
                 }

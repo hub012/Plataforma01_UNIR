@@ -52,7 +52,7 @@ namespace Enemy
         {
             // Start with idle state
             EnemyStateMachine.InitStateMachine(IdleState);
-            Debug.Log(EnemyStateMachine.CurrentState);
+           // Debug.Log(EnemyStateMachine.CurrentState);
         }
 
         protected virtual void Update()
@@ -81,11 +81,15 @@ namespace Enemy
                 Die();
             }
         }
+        public void AnimationTrigger()
+        {
+            EnemyStateMachine.CurrentState?.AnimationTrigger();
+        }
 
         protected virtual void Die()
         {
             // Handle death logic
-            Debug.Log($"{gameObject.name} has died!");
+            //Debug.Log($"{gameObject.name} has died!");
             // You could add death animation, drop items, etc.
             Destroy(gameObject);
         }

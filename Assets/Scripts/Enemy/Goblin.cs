@@ -44,7 +44,7 @@ namespace Enemy
         protected override void Start()
         {
             base.Start();
-            Debug.Log($"{gameObject.name} Goblin is ready for battle!");
+           // Debug.Log($"{gameObject.name} Goblin is ready for battle!");
         }
 
         protected override void Update()
@@ -107,7 +107,7 @@ namespace Enemy
                 if (playerComponent != null)
                 {
                     // You'll need to add a TakeDamage method to your Player class
-                    Debug.Log($"Goblin attacks player for {attackDamage} damage!");
+                    //Debug.Log($"Goblin attacks player for {attackDamage} damage!");
                     // playerComponent.TakeDamage(attackDamage);
                 }
             }
@@ -133,7 +133,7 @@ namespace Enemy
             base.TakeDamage(damage);
             
             // Goblin-specific damage reaction
-            Debug.Log($"Goblin takes {damage} damage! Remaining health: {Life}");
+           // Debug.Log($"Goblin takes {damage} damage! Remaining health: {Life}");
             
             // Could add damage animation, sound effects, etc.
             // Example: Play hurt animation
@@ -142,7 +142,7 @@ namespace Enemy
 
         protected override void Die()
         {
-            Debug.Log("Goblin has been defeated!");
+            //Debug.Log("Goblin has been defeated!");
             
             // Goblin-specific death behavior
             // Could drop items, play death animation, add score, etc.

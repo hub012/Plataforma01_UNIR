@@ -18,7 +18,7 @@ namespace Enemy.States
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("Goblin starts chasing player!");
+            //Debug.Log("Goblin starts chasing player!");
         }
 
         public override void PhysicsUpdate()
@@ -60,7 +60,7 @@ namespace Enemy.States
         public override void Exit()
         {
             base.Exit();
-            Debug.Log("Goblin stops chasing");
+           // Debug.Log("Goblin stops chasing");
         }
     }
 }
