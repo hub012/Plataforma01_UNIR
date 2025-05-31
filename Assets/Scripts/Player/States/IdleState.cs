@@ -12,36 +12,42 @@ namespace Player.States
         public override void Enter()
         {
             base.Enter();
-            player.IsAirborne = false;
-        
+            // Stop horizontal movement when entering idle
+            player.playerRigidbody.velocity = new Vector2(0, player.playerRigidbody.velocity.y);
         }
+
         public override void TransitionChecks()
         {
             base.TransitionChecks();
 
-            if (player.IsAirborne)
-                return;
-
-            if(player.IsGrounded() && player.PlayerControls.JumpPressed)
+            // Priority 1: Jump (if grounded and jump pressed)
+            if (player.IsGrounded() && player.PlayerControls.JumpPressed)
             {
-                PlayerStateMachine.ChangeState(player.jumpState);
                 player.PlayerControls.ResetJump();
+                PlayerStateMachine.ChangeState(player.jumpState);
                 return;
             }
 
-            if (player.PlayerControls.inputMove != Vector2.zero)
-            {
-                PlayerStateMachine.ChangeState(player.walkState);
-            }
-            if(player.PlayerControls.IsSprinting)
-                PlayerStateMachine.ChangeState(player.runState);
-                            
+            // Priority 2: Vertical Attack
             if (player.PlayerControls.IsVerticalAttacking)
+            {
                 PlayerStateMachine.ChangeState(player.verticalAttackState);
-            
-            
-        
+                return;
+            }
+
+            // Priority 3: Movement (Walk or Run based on sprint input)
+            if (player.PlayerControls.HasMovementInput)
+            {
+                if (player.PlayerControls.IsSprinting)
+                {
+                    PlayerStateMachine.ChangeState(player.runState);
+                }
+                else
+                {
+                    PlayerStateMachine.ChangeState(player.walkState);
+                }
+                return;
+            }
         }
-    
     }
 }

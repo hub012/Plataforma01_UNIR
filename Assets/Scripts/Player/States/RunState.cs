@@ -8,37 +8,55 @@ namespace Player.States
             : base(player, playerStateMachine, animatorController, "Running")
         {
         }
+
         public override void LogicUpdate()
         {
-            base.LogicUpdate(); 
-            var playerVelocity = new Vector2(player.PlayerControls.inputMove.x * player.SprintingSpeed, player.playerRigidbody.velocity.y);
+            base.LogicUpdate();
+            
+            // Apply running movement
+            var playerVelocity = new Vector2(
+                player.PlayerControls.inputMove.x * player.SprintingSpeed, 
+                player.playerRigidbody.velocity.y
+            );
             player.playerRigidbody.velocity = playerVelocity;
-      
         }
 
         public override void TransitionChecks()
         {
             base.TransitionChecks();
+            
+            // Skip transitions if airborne (let jump state handle landing)
             if (player.IsAirborne)
                 return;
 
-            if(player.IsGrounded() &&  player.PlayerControls.JumpPressed)
+            // Priority 1: Jump (if grounded and jump pressed)
+            if (player.IsGrounded() && player.PlayerControls.JumpPressed)
             {
-                PlayerStateMachine.ChangeState(player.jumpState);
                 player.PlayerControls.ResetJump();
+                PlayerStateMachine.ChangeState(player.jumpState);
                 return;
             }
-            if (player.PlayerControls.inputMove == Vector2.zero)
-                PlayerStateMachine.ChangeState(player.idleState);
 
-            if(!player.PlayerControls.IsSprinting)
+            // Priority 2: Vertical Attack
+            if (player.PlayerControls.IsVerticalAttacking)
+            {
+                PlayerStateMachine.ChangeState(player.verticalAttackState);
+                return;
+            }
+
+            // Priority 3: Stop moving (return to idle)
+            if (player.PlayerControls.inputMove == Vector2.zero)
+            {
+                PlayerStateMachine.ChangeState(player.idleState);
+                return;
+            }
+
+            // Priority 4: Stop sprinting (switch to walk)
+            if (!player.PlayerControls.IsSprinting)
+            {
                 PlayerStateMachine.ChangeState(player.walkState);
-        
-            if(player.PlayerControls.IsJumping){
-                PlayerStateMachine.ChangeState(player.jumpState);
-                player.PlayerControls.ResetJump(); // con esto evito que entre mas de una vez 
+                return;
             }
         }
-
     }
 }
