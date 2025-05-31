@@ -98,21 +98,31 @@ namespace Enemy
 
             lastAttackTime = Time.time;
             CanAttack = false;
-            
-            // Try to damage player if in range
-            if (PlayerTarget != null && Vector2.Distance(transform.position, PlayerTarget.position) <= attackRange)
+    
+            Debug.Log("Goblin attacks!");
+    
+            // Calculate attack position
+            Vector2 attackPosition = (Vector2)transform.position + 
+                                     new Vector2(transform.localScale.x * 0.8f, 0f);
+    
+            // Check for player in range
+            Collider2D playerCollider = Physics2D.OverlapCircle(
+                attackPosition,
+                attackRange,
+                LayerMask.GetMask("Player")
+            );
+
+            if (playerCollider != null)
             {
-                // Try to get player component and deal damage
-                var playerComponent = PlayerTarget.GetComponent<Player.Player>();
-                if (playerComponent != null)
+                var player = playerCollider.GetComponent<Player.Player>();
+                if (player != null)
                 {
-                    // You'll need to add a TakeDamage method to your Player class
-                    //Debug.Log($"Goblin attacks player for {attackDamage} damage!");
-                    // playerComponent.TakeDamage(attackDamage);
+                    player.TakeDamage(attackDamage);
+                    Debug.Log($"Goblin hits player for {attackDamage} damage!");
                 }
             }
+            
         }
-
         public float GetDirectionToPlayer()
         {
             if (PlayerTarget == null) return 0f;

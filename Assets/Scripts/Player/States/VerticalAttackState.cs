@@ -6,6 +6,9 @@ namespace Player.States
     {
         private float attackDuration = 0.5f; // How long the attack lasts
         private bool attackComplete = false;
+        private bool hasDealtDamage = false;
+        private int attackDamage = 50;
+        private float attackRange = 1.5f;
 
         public VerticalAttackState(Player player, PlayerStateMachine playerStateMachine, Animator animatorController) 
             : base(player, playerStateMachine, animatorController, "VerticalAttacking")
@@ -15,6 +18,7 @@ namespace Player.States
         public override void Enter()
         {
             base.Enter();
+            hasDealtDamage = false;
             attackComplete = false;
             
             // Reduce horizontal movement during attack (optional)
@@ -90,25 +94,47 @@ namespace Player.States
             // Example: spawn attack hitbox, play sound effect, etc.
         }
 
-        // This can be called by animation events for precise attack timing
+        
         public override void AnimationTrigger()
         {
             base.AnimationTrigger();
-            // This is where you'd handle the actual attack logic
-            // Example: Check for enemies in range, deal damage, etc.
-            PerformAttack();
+    
+            if (!hasDealtDamage)
+            {
+                hasDealtDamage = true;
+                PerformAttack();
+            }
         }
 
         private void PerformAttack()
         {
-            // Add your attack logic here
-           // Debug.Log("Vertical attack performed!");
-            
-            // Example attack logic:
-            // - Check for enemies in attack range
-            // - Deal damage to enemies
-            // - Create visual/particle effects
-            // - Play attack sound
+            Debug.Log("Player attacks!");
+    
+            // Calculate where the attack hits
+            Vector2 attackPosition = (Vector2)player.transform.position + 
+                                     new Vector2(player.transform.localScale.x * 0.8f, -0.3f);
+    
+            // Find enemies in range
+            Collider2D[] enemies = Physics2D.OverlapCircleAll(
+                attackPosition, 
+                attackRange, 
+                LayerMask.GetMask("Enemy")
+            );
+    
+            // Damage each enemy found
+            foreach (var enemyCollider in enemies)
+            {
+                var enemy = enemyCollider.GetComponent<Enemy.Goblin>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(attackDamage);
+                    Debug.Log($"Hit {enemy.name}!");
+                }
+            }
+    
+            // Show attack area (red circle in Scene view)
+            DebugExtension.DebugWireSphere(attackPosition, Color.red, attackRange, 0.5f);
+                
         }
     }
 }

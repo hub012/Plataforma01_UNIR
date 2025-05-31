@@ -5,6 +5,10 @@ namespace Player
 {
     public class Player : MonoBehaviour
     {
+        [Header("Health")]
+        [SerializeField] private int maxHealth = 100;
+        private int currentHealth;
+        
         [Header("Movement Settings")]
         public float speed = 5f;
         public float jumpSpeed = 10f;
@@ -46,6 +50,9 @@ namespace Player
             
             // Initialize states
             InitializeStates();
+            
+            //Initialize health
+            currentHealth = maxHealth;
         }
 
         void Start()
@@ -102,6 +109,21 @@ namespace Player
             Debug.DrawRay(origin, Vector2.down * rayLength, hit.collider != null ? Color.green : Color.red);
             
             return hit.collider != null;
+        }
+        public void AnimationTrigger()
+        {
+            _playerStateMachine.CurrentState?.AnimationTrigger();
+        }
+        public void TakeDamage(int damage)
+        {
+            currentHealth -= damage;
+            Debug.Log($"Player health: {currentHealth}/{maxHealth}");
+    
+            if (currentHealth <= 0)
+            {
+                Debug.Log("Player died!");
+                // Handle death later
+            }
         }
     }
 }
