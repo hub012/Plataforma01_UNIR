@@ -77,7 +77,7 @@ namespace Enemy.States
             base.TransitionChecks();
             if (goblin == null) return;
             // If player is out of aggro range, return to patrol
-            Debug.Log(goblin.GetDistanceToPlayer());
+            //Debug.Log(goblin.GetDistanceToPlayer());
             if (goblin.IsPlayerInRange)
             {
                 EnemyStateMachine.ChangeState(goblin.ChaseState);

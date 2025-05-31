@@ -63,8 +63,8 @@ namespace Player
             FlipSprite();
             
             // Debug info (remove in production)
-            Debug.Log($"Current State: {_playerStateMachine.CurrentState?.GetType().Name}");
-            Debug.Log($"Is Grounded: {IsGrounded()}");
+          //  Debug.Log($"Current State: {_playerStateMachine.CurrentState?.GetType().Name}");
+          //  Debug.Log($"Is Grounded: {IsGrounded()}");
         }
 
         void FixedUpdate()

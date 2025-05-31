@@ -102,7 +102,7 @@ namespace Player.States
         private void PerformAttack()
         {
             // Add your attack logic here
-            Debug.Log("Vertical attack performed!");
+           // Debug.Log("Vertical attack performed!");
             
             // Example attack logic:
             // - Check for enemies in attack range
