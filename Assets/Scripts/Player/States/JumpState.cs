@@ -7,6 +7,7 @@ namespace Player.States
         private float jumpCooldown = 0.1f; // Minimum time before we can check for landing
         private float timer;
         private bool hasJumped = false;
+        private bool jumpCut = false; // Track if jump was cut short
 
         public JumpState(Player player, PlayerStateMachine playerStateMachine, Animator animatorController)
             : base(player, playerStateMachine, animatorController, "Jumping")
@@ -18,6 +19,7 @@ namespace Player.States
             base.Enter();
             timer = 0f;
             hasJumped = false;
+            jumpCut = false;
             player.IsAirborne = true;
         }
 
@@ -26,12 +28,26 @@ namespace Player.States
             base.LogicUpdate();
             timer += Time.deltaTime;
 
+            // Handle variable jump height (cut jump short if button released)
+            if (!jumpCut && !player.PlayerControls.JumpPressed && player.playerRigidbody.velocity.y > player.jumpCutHeight)
+            {
+                jumpCut = true;
+                player.playerRigidbody.velocity = new Vector2(
+                    player.playerRigidbody.velocity.x, 
+                    player.playerRigidbody.velocity.y * 0.5f // Cut jump height in half
+                );
+            }
+
             // Allow horizontal movement while jumping
             if (player.PlayerControls.HasMovementInput)
             {
                 float horizontalSpeed = player.PlayerControls.IsSprinting ? player.SprintingSpeed : player.speed;
+                
+                // Slightly reduced air control for more realistic feel
+                float airControlModifier = 0.8f;
+                
                 player.playerRigidbody.velocity = new Vector2(
-                    player.PlayerControls.inputMove.x * horizontalSpeed, 
+                    player.PlayerControls.inputMove.x * horizontalSpeed * airControlModifier, 
                     player.playerRigidbody.velocity.y
                 );
             }
@@ -85,6 +101,13 @@ namespace Player.States
                     }
                 }
             }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            // Reset gravity scale when exiting jump
+            player.playerRigidbody.gravityScale = 1f;
         }
     }
 }

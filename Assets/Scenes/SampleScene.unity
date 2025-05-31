@@ -2450,6 +2450,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: jumpSpeed
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
       propertyPath: damageColor.b
       value: 0.46751517
       objectReference: {fileID: 0}
@@ -2460,6 +2464,18 @@ PrefabInstance:
     - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
       propertyPath: damageColor.r
       value: 0.9622642
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: jumpCutHeight
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: lowJumpMultiplier
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: fallGravityMultiplier
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4998673256083427934, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
       propertyPath: m_Name

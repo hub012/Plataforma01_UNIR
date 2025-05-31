@@ -12,7 +12,6 @@ namespace Player
         
         [Header("Movement Settings")]
         public float speed = 5f;
-        public float jumpSpeed = 10f;
         public float sprintMultiplier = 2f;
         
         [Header("Ground Detection")]
@@ -23,6 +22,13 @@ namespace Player
         [SerializeField] private float flashDuration = 0.15f;
         [SerializeField] private Color damageColor = Color.red;
         
+        [Header("Jump Settings")]
+        public float jumpSpeed = 15f; // Increased for snappier jump
+        public float fallGravityMultiplier = 2.5f; // Makes falling faster
+        public float lowJumpMultiplier = 2f; // Shorter jumps when button released early
+        public float jumpCutHeight = 0.5f; // How much to cut jump when button released
+
+        
         // Components
         public Rigidbody2D playerRigidbody { get; private set; }
         public Animator playerAnimator { get; private set; }
@@ -32,6 +38,8 @@ namespace Player
         // Properties
         public float SprintingSpeed => speed * sprintMultiplier;
         public bool IsAirborne { get; set; }
+        // Jump properties
+        private float defaultGravityScale;
         
         // State Machine
         private PlayerStateMachine _playerStateMachine;
@@ -58,6 +66,9 @@ namespace Player
             // Initialize state machine
             _playerStateMachine = new PlayerStateMachine();
             
+            // Store default gravity for jump modifications
+            defaultGravityScale = playerRigidbody.gravityScale;
+            
             // Initialize states
             InitializeStates();
             
@@ -82,7 +93,8 @@ namespace Player
         {
             // Update current state
             _playerStateMachine.CurrentState?.LogicUpdate();
-            
+            // Handle jump gravity modifiers
+            HandleJumpGravity();
             // Handle sprite flipping
             FlipSprite();
             
@@ -90,13 +102,37 @@ namespace Player
           //  Debug.Log($"Current State: {_playerStateMachine.CurrentState?.GetType().Name}");
           //  Debug.Log($"Is Grounded: {IsGrounded()}");
         }
-
+        
         void FixedUpdate()
         {
             // Physics updates for current state
             _playerStateMachine.CurrentState?.PhysicsUpdate();
         }
-
+        private void HandleJumpGravity()
+        {
+            if (IsAirborne)
+            {
+                // Make falling faster for snappier feel
+                if (playerRigidbody.velocity.y < 0)
+                {
+                    playerRigidbody.gravityScale = defaultGravityScale * fallGravityMultiplier;
+                }
+                // Cut jump short if button released early
+                else if (playerRigidbody.velocity.y > 0 && !PlayerControls.JumpPressed)
+                {
+                    playerRigidbody.gravityScale = defaultGravityScale * lowJumpMultiplier;
+                }
+                else
+                {
+                    playerRigidbody.gravityScale = defaultGravityScale;
+                }
+            }
+            else
+            {
+                // Reset gravity when grounded
+                playerRigidbody.gravityScale = defaultGravityScale;
+            }
+        }
         private void InitializeStates()
         {
             idleState = new IdleState(this, _playerStateMachine, playerAnimator);
