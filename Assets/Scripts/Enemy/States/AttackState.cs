@@ -28,20 +28,11 @@ namespace Enemy.States
                 float direction = goblin.GetDirectionToPlayer();
                 enemy.FlipSprite(direction);
             }
-            
-            //Debug.Log("Goblin attacks!");
         }
-
-        public override void LogicUpdate()
-        {
-            base.LogicUpdate();
-            // Attacking using animation event
-        }
-
+        
         private void PerformAttack()
         {
             hasAttacked = true;
-            //Debug.Log("Goblin attacks!");
             goblin?.Attack();
         }
 
@@ -58,42 +49,36 @@ namespace Enemy.States
                     EnemyStateMachine.ChangeState(enemy.IdleState);
                     return;
                 }
-
-                // Check what to do next
-                if (goblin.IsPlayerInRange && goblin.GetDistanceToPlayer() > goblin.AttackRange)
-                {
-                    // Player is still in aggro range but too far to attack - chase
-                    EnemyStateMachine.ChangeState(goblin.ChaseState);
-                }
-                else if (goblin.IsPlayerInRange && goblin.GetDistanceToPlayer() <= goblin.AttackRange && goblin.CanAttack)
-                {
-                    // Player still in attack range and we can attack again - attack again
-                    EnemyStateMachine.ChangeState(goblin.AttackState);
-                }
-                else if (!goblin.IsPlayerInRange)
+                
+                float distanceToPlayer = goblin.GetDistanceToPlayer();
+        
+                if (!goblin.IsPlayerInRange)
                 {
                     // Player left aggro range - return to patrol
                     EnemyStateMachine.ChangeState(enemy.PatrolState);
                 }
+                else if (distanceToPlayer <= goblin.AttackRange && goblin.CanAttack)
+                {
+                    // Player in attack range AND can attack - attack again
+                    EnemyStateMachine.ChangeState(goblin.AttackState);
+                }
+                else if (distanceToPlayer > goblin.AttackRange)
+                {
+                    // Player in aggro range but too far to attack - chase
+                    EnemyStateMachine.ChangeState(goblin.ChaseState);
+                }
                 else
                 {
-                    // Wait (attack cooldown) - go to idle briefly
+                    // Player in attack range but can't attack (cooldown) - wait in idle
                     EnemyStateMachine.ChangeState(enemy.IdleState);
                 }
             }
         }
-
-        public override void Exit()
-        {
-            base.Exit();
-        }
-
-        // This could be called by animation events for more precise timing
+        // Esto lo llamo desde el animation event
         public override void AnimationTrigger()
         {
             base.AnimationTrigger();
             
-            // Usado en el animation
             if (!hasAttacked)
             {
                 PerformAttack();

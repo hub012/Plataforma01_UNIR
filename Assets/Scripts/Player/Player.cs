@@ -22,6 +22,12 @@ namespace Player
         [SerializeField] private float flashDuration = 0.15f;
         [SerializeField] private Color damageColor = Color.red;
         
+        [Header("Audio")]
+        [SerializeField] private AudioClip damageSound;
+        [SerializeField] private AudioClip deathSound;
+        [SerializeField] private AudioClip attackSound;
+        [SerializeField] private float damageSoundVolume = 0.7f;
+        
         [Header("Jump Settings")]
         public float jumpSpeed = 15f; // Increased for snappier jump
         public float fallGravityMultiplier = 2.5f; // Makes falling faster
@@ -34,6 +40,7 @@ namespace Player
         public Animator playerAnimator { get; private set; }
         public PlayerControls PlayerControls { get; private set; }
         private SpriteRenderer spriteRenderer;
+        private AudioSource audioSource;
         
         // Properties
         public float SprintingSpeed => speed * sprintMultiplier;
@@ -62,6 +69,15 @@ namespace Player
             playerAnimator = GetComponent<Animator>();
             PlayerControls = GetComponent<PlayerControls>();
             spriteRenderer = GetComponent<SpriteRenderer>();
+            audioSource = GetComponent<AudioSource>();
+            
+            // If no AudioSource exists, add one
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource.playOnAwake = false; // Don't play sound on start
+                audioSource.spatialBlend = 0f; // 2D sound (not 3D positional)
+            }
             
             // Initialize state machine
             _playerStateMachine = new PlayerStateMachine();
@@ -167,6 +183,20 @@ namespace Player
         {
             _playerStateMachine.CurrentState?.AnimationTrigger();
         }
+        private void PlayDamageSound()
+        {
+            if (audioSource != null && damageSound != null)
+            {
+                audioSource.PlayOneShot(damageSound, damageSoundVolume);
+            }
+        }
+        public void PlayHitSound()
+        {
+            if (audioSource != null && damageSound != null)
+            {
+                audioSource.PlayOneShot(attackSound, damageSoundVolume);
+            }
+        }
         private IEnumerator DamageFlash()
         {
             if (spriteRenderer == null) yield break;
@@ -190,11 +220,25 @@ namespace Player
             
             isFlashing = false;
         }
+        private void Die()
+        {
+            Debug.Log("Player died!");
+            
+            // Play death sound
+            if (audioSource != null && deathSound != null)
+            {
+                audioSource.PlayOneShot(deathSound, damageSoundVolume);
+            }
+            
+            // Handle death logic here
+            // Example: Restart level, show game over screen, etc.
+        }
+
         public void TakeDamage(int damage)
         {
             currentHealth -= damage;
             Debug.Log($"Player health: {currentHealth}/{maxHealth}");
-
+            PlayDamageSound();
             // Start damage flash effect
             if (!isFlashing)
             {

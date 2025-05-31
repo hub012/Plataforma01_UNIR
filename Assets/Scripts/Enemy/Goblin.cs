@@ -16,12 +16,20 @@ namespace Enemy
         [Header("Damage Effects")]
         [SerializeField] private float flashDuration = 0.15f;
         [SerializeField] private Color damageColor = Color.red;
+       
+        [Header("Audio")]
+        [SerializeField] private AudioClip damageSound;
+        [SerializeField] private AudioClip deathSound;
+        [SerializeField] private AudioClip attackSound;
+        [SerializeField] private float soundVolume = 0.7f;
         
         // Goblin-specific properties
         public float AggroRange => aggroRange;
         public float AttackRange => attackRange;
         public int AttackDamage => attackDamage;
         public float AttackCooldown => attackCooldown;
+        
+        private AudioSource audioSource;
         
         // Player detection
         public Transform PlayerTarget { get; private set; }
@@ -43,6 +51,15 @@ namespace Enemy
         {
             base.Awake();
             spriteRenderer = GetComponent<SpriteRenderer>();
+            audioSource = GetComponent<AudioSource>();
+            // Add AudioSource if missing
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource.playOnAwake = false;
+                audioSource.spatialBlend = 0f; // 2D sound
+            }
+
             
             // Find player in scene (you might want to use a more sophisticated method)
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -110,13 +127,21 @@ namespace Enemy
                 CanAttack = true;
             }
         }
-
+        private void PlayAttackSound()
+        {
+            if (audioSource != null && attackSound != null)
+            {
+                audioSource.PlayOneShot(attackSound, soundVolume);
+            }
+        }
         public void Attack()
         {
             if (!CanAttack) return;
 
             lastAttackTime = Time.time;
             CanAttack = false;
+            // Play attack sound
+            PlayAttackSound();
     
             Debug.Log("Goblin attacks!");
     
@@ -157,9 +182,19 @@ namespace Enemy
         }
 
         // Override TakeDamage to add goblin-specific behavior
+        private void PlayDamageSound()
+        {
+            if (audioSource != null && damageSound != null)
+            {
+                audioSource.PlayOneShot(damageSound, soundVolume);
+            }
+        }
+
         public override void TakeDamage(int damage)
         {
             base.TakeDamage(damage);
+            // Play damage sound
+            PlayDamageSound();
             
             Debug.Log($"Goblin takes {damage} damage! Remaining health: {Life}");
             
@@ -169,7 +204,6 @@ namespace Enemy
                 StartCoroutine(DamageFlash());
             }
             
-            // ... rest of your existing TakeDamage code ...
         }
         private IEnumerator DamageFlash()
         {
@@ -199,7 +233,12 @@ namespace Enemy
         {
             Debug.Log("Goblin has been defeated!");
             
-            // Stop any ongoing flash coroutine and restore color
+            // Play death sound
+            if (audioSource != null && deathSound != null)
+            {
+                audioSource.PlayOneShot(deathSound, soundVolume);
+            }
+            
             StopAllCoroutines();
             if (spriteRenderer != null)
             {

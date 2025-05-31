@@ -109,6 +109,7 @@ namespace Player.States
         private void PerformAttack()
         {
             Debug.Log("Player attacks!");
+            player.PlayHitSound();
     
             // Calculate where the attack hits
             Vector2 attackPosition = (Vector2)player.transform.position + 
