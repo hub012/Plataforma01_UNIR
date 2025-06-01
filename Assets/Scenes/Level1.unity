@@ -113359,8 +113359,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: jumpSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: jumpCutHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: lowJumpMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
       propertyPath: groundCheckDistance
       value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: fallGravityMultiplier
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4998673256083427934, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
       propertyPath: m_Name
