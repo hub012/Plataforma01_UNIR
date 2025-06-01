@@ -123,6 +123,8 @@ namespace Player
         }
         public void Heal(int amount)
         {
+            if(!NeedsHealing()) return;
+            
             currentHealth += amount;
             UpdateHealthBar();
     
@@ -134,11 +136,9 @@ namespace Player
     
             Debug.Log($"Player healed! Health: {currentHealth}/{maxHealth}");
     
-            // Optional: Play heal sound or effect
-            // You can add a healing sound effect here if you want
+            
         }
-
-// Also add this method if you want to check health before healing:
+        
         public bool NeedsHealing()
         {
             return currentHealth < maxHealth;
@@ -181,7 +181,6 @@ namespace Player
             }
             else
             {
-                // Reset gravity when grounded
                 playerRigidbody.gravityScale = defaultGravityScale;
             }
         }
@@ -211,7 +210,7 @@ namespace Player
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, rayLength, groundLayer);
             
             // Dibuja la linea
-            // Debug.DrawRay(origin, Vector2.down * rayLength, hit.collider != null ? Color.green : Color.red);
+             Debug.DrawRay(origin, Vector2.down * rayLength, hit.collider != null ? Color.green : Color.red);
             
             return hit.collider != null;
         }
