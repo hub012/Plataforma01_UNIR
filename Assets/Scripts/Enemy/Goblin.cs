@@ -90,9 +90,9 @@ namespace Enemy
 
         protected override void Update()
         {
-            // IMPORTANT: Call base.Update() to maintain state machine functionality
+            
             base.Update();
-            // Goblin-specific updates
+            
             UpdatePlayerDetection();
             UpdateAttackCooldown();
         }
