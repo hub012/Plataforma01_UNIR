@@ -12,11 +12,11 @@ namespace Enemy
         [SerializeField] protected float patrolDistance = 5f;
         [SerializeField] protected float idleTime = 2f;
 
-        // Components
+        // Componentes
         public Rigidbody2D Rb;
         protected Animator Animator;
         
-        // Properties
+        // Propiedades
         public int Life { get; protected set; }
         public float MoveSpeed => moveSpeed;
         public float PatrolDistance => patrolDistance;

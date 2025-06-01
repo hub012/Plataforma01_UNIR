@@ -41,6 +41,7 @@ namespace Scene
                     MusicManager.Instance.PlayLevel1();
                     break;
                 case "GameOver":
+                    MusicManager.Instance.PlayGameOver();
                     Debug.Log("GameOver");
                     break;
                 case "WinGame":
