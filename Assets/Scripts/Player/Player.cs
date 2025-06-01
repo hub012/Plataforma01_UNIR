@@ -121,6 +121,27 @@ namespace Player
                 playerHealthBar.UpdateHealthBar(currentHealth, maxHealth);
             }
         }
+        public void Heal(int amount)
+        {
+            currentHealth += amount;
+    
+            // Don't go over max health
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+    
+            Debug.Log($"Player healed! Health: {currentHealth}/{maxHealth}");
+    
+            // Optional: Play heal sound or effect
+            // You can add a healing sound effect here if you want
+        }
+
+// Also add this method if you want to check health before healing:
+        public bool NeedsHealing()
+        {
+            return currentHealth < maxHealth;
+        }
 
         void Update()
         {

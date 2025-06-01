@@ -46,6 +46,10 @@ namespace Tutorial
         private bool hasSprinted = false;
         private bool hasMovedLeft = false;
         private bool hasMovedRight = false;
+        
+        // Collectable tracking
+        private bool hasCollectedCoin = false;
+        private bool hasCollectedGem = false;
     
         private void Start()
         {
@@ -182,15 +186,7 @@ namespace Tutorial
         
            
         }
-
-        public void MarkStepTextAsCompleted()
-        {
-            instructionText.color = Color.green;
-        }
-        public void MarkStepTextAsStarted()
-        {
-            instructionText.color = Color.white;
-        }
+        
         private IEnumerator HideInstruction()
         {
             float alpha = 1f;
@@ -225,6 +221,12 @@ namespace Tutorial
                         break;
                     case "Attack":
                         actionCompleted = hasAttacked;
+                        break;
+                    case "CoinPick":
+                        actionCompleted = hasCollectedCoin;
+                        break;
+                    case "GemPick":
+                        actionCompleted = hasCollectedGem;
                         break;
                 }
             
