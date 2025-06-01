@@ -124,6 +124,7 @@ namespace Player
         public void Heal(int amount)
         {
             currentHealth += amount;
+            UpdateHealthBar();
     
             // Don't go over max health
             if (currentHealth > maxHealth)
@@ -152,9 +153,6 @@ namespace Player
             // Handle sprite flipping
             FlipSprite();
             
-            // Debug info (remove in production)
-          //  Debug.Log($"Current State: {_playerStateMachine.CurrentState?.GetType().Name}");
-          //  Debug.Log($"Is Grounded: {IsGrounded()}");
         }
         
         void FixedUpdate()
@@ -212,8 +210,8 @@ namespace Player
             
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, rayLength, groundLayer);
             
-            // Debug visualization
-            Debug.DrawRay(origin, Vector2.down * rayLength, hit.collider != null ? Color.green : Color.red);
+            // Dibuja la linea
+            // Debug.DrawRay(origin, Vector2.down * rayLength, hit.collider != null ? Color.green : Color.red);
             
             return hit.collider != null;
         }
@@ -262,14 +260,12 @@ namespace Player
         {
             Debug.Log("Player died!");
             
-            // Play death sound
             if (audioSource != null && deathSound != null)
             {
                 audioSource.PlayOneShot(deathSound, damageSoundVolume);
             }
             
-            // Handle death logic here
-            // Example: Restart level, show game over screen, etc.
+            Scene.SceneManager.Instance.ChangeScene("GameOver");
         }
 
         public void TakeDamage(int damage)
@@ -278,7 +274,7 @@ namespace Player
             Debug.Log($"Player health: {currentHealth}/{maxHealth}");
             UpdateHealthBar();
             PlayDamageSound();
-            // Start damage flash effect
+            
             if (!isFlashing)
             {
                 StartCoroutine(DamageFlash());
@@ -286,8 +282,7 @@ namespace Player
 
             if (currentHealth <= 0)
             {
-                Debug.Log("Player died!");
-                // Handle death later
+              Die();
             }
         }
     }

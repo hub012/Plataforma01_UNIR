@@ -31,7 +31,7 @@ namespace Collectables
                         AudioSource.PlayClipAtPoint(pickupSound, transform.position, soundVolume);
                     }
                     
-                
+                    CollectableManager.Instance.CollectGem();
                     // Destroy the gem
                     Destroy(gameObject);
                 }

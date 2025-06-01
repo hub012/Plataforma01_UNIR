@@ -4,15 +4,19 @@ using UnityEngine.UI;
 
 namespace Collectables
 {
-    public class CoinManager : MonoBehaviour
+    public class CollectableManager : MonoBehaviour
     {
-        public static CoinManager Instance;
+        public static CollectableManager Instance;
     
         [Header("UI")]
         [SerializeField] private TextMeshProUGUI coinText; 
     
         [Header("Coin Data")]
         [SerializeField] private int currentCoins = 0;
+        
+        // Collectable tracking
+        private bool hasCollectedCoin = false;
+        private bool hasCollectedGem = false;
     
         void Awake()
         {
@@ -37,13 +41,31 @@ namespace Collectables
             UpdateCoinUI();
         }
         
-    
         void UpdateCoinUI()
         {
             if (coinText != null)
             {
                 coinText.text = currentCoins.ToString();
             }
+        }
+        
+        
+        public void CollectCoin()
+        {
+            hasCollectedCoin = true;
+        }
+        public void CollectGem()
+        {
+            hasCollectedGem = true;
+        }
+        
+        public bool HasCollectedCoin()
+        {
+            return hasCollectedCoin;
+        }
+        public bool HasCollectedGem()
+        {
+            return hasCollectedGem;
         }
     }
 }

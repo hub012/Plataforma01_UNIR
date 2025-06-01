@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Collectables;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -91,6 +92,10 @@ namespace Tutorial
             if (playerControls.JumpPressed) hasJumped = true;
             if (playerControls.IsSprinting && playerControls.HasMovementInput) hasSprinted = true;
             if (playerControls.IsVerticalAttacking) hasAttacked = true;
+            
+            // Coleccionables check
+            hasCollectedCoin = CollectableManager.Instance.HasCollectedCoin();
+            hasCollectedGem = CollectableManager.Instance.HasCollectedGem();
         }
         private void ShowInstruction(string text)
         {

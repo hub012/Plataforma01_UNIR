@@ -15,14 +15,14 @@ public class Coin : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Add coin to counter
-            CoinManager.Instance.AddCoins(coinValue);
+            CollectableManager.Instance.AddCoins(coinValue);
             
             // Play sound
             if (pickupSound != null)
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position, soundVolume);
             }
-            
+            CollectableManager.Instance.CollectCoin();
             
             // Destroy the coin
             Destroy(gameObject);
