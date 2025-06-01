@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Enemy.States;
+using Enemy.UI;
 using UnityEngine;
 
 namespace Enemy
@@ -22,6 +23,10 @@ namespace Enemy
         [SerializeField] private AudioClip deathSound;
         [SerializeField] private AudioClip attackSound;
         [SerializeField] private float soundVolume = 0.7f;
+        
+        [Header("UI")]
+        [SerializeField] private GoblinHealthBar healthBar;
+
         
         // Goblin-specific properties
         public float AggroRange => aggroRange;
@@ -75,19 +80,18 @@ namespace Enemy
                 originalColor.a = 1f;
                 spriteRenderer.color = originalColor;
             }
+            
+            if (healthBar == null)
+            {
+                healthBar = GetComponentInChildren<GoblinHealthBar>();
+            }
         }
-
-        protected override void Start()
-        {
-            base.Start();
-           // Debug.Log($"{gameObject.name} Goblin is ready for battle!");
-        }
+        
 
         protected override void Update()
         {
             // IMPORTANT: Call base.Update() to maintain state machine functionality
             base.Update();
-            
             // Goblin-specific updates
             UpdatePlayerDetection();
             UpdateAttackCooldown();
@@ -195,6 +199,11 @@ namespace Enemy
             base.TakeDamage(damage);
             // Play damage sound
             PlayDamageSound();
+            // Update health bar
+            if (healthBar != null)
+            {
+                healthBar.UpdateHealthBar(Life);
+            }
             
             Debug.Log($"Goblin takes {damage} damage! Remaining health: {Life}");
             
@@ -232,7 +241,11 @@ namespace Enemy
         protected override void Die()
         {
             Debug.Log("Goblin has been defeated!");
-            
+            if (healthBar != null)
+            {
+                healthBar.HideHealthBarImmediately();
+            }
+
             // Play death sound
             if (audioSource != null && deathSound != null)
             {
@@ -247,6 +260,8 @@ namespace Enemy
             
             base.Die();
         }
+        
+        
 
         // Debug method to visualize goblin's detection ranges
         private void OnDrawGizmosSelectesd()

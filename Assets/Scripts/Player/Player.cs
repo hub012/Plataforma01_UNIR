@@ -10,6 +10,9 @@ namespace Player
         [SerializeField] private int maxHealth = 100;
         private int currentHealth;
         
+        [Header("UI References")]
+        [SerializeField] private HealthBar playerHealthBar;
+        
         [Header("Movement Settings")]
         public float speed = 5f;
         public float sprintMultiplier = 2f;
@@ -45,6 +48,9 @@ namespace Player
         // Properties
         public float SprintingSpeed => speed * sprintMultiplier;
         public bool IsAirborne { get; set; }
+        public int CurrentHealth => currentHealth; // Add getter for current health
+        public int MaxHealth => maxHealth;
+        
         // Jump properties
         private float defaultGravityScale;
         
@@ -103,6 +109,16 @@ namespace Player
         {
             // Start with idle state
             _playerStateMachine.InitStateMachine(idleState);
+            
+            // Initialize health bar
+            UpdateHealthBar();
+        }
+        private void UpdateHealthBar()
+        {
+            if (playerHealthBar != null)
+            {
+                playerHealthBar.UpdateHealthBar(currentHealth, maxHealth);
+            }
         }
 
         void Update()
@@ -238,6 +254,7 @@ namespace Player
         {
             currentHealth -= damage;
             Debug.Log($"Player health: {currentHealth}/{maxHealth}");
+            UpdateHealthBar();
             PlayDamageSound();
             // Start damage flash effect
             if (!isFlashing)
