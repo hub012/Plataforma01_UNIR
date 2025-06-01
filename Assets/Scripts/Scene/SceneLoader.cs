@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Scene
 {
-    public class SceneManager : MonoBehaviour
+    public class SceneLoader : MonoBehaviour
     {
-        public static SceneManager Instance;
+        public static SceneLoader Instance;
         void Awake()
         {
             if (Instance == null)
@@ -18,6 +18,14 @@ namespace Scene
             else
             {
                 Destroy(gameObject);
+            }
+        }
+
+        private void Update()
+        {
+            if (Instance == null)
+            {
+                Instance = FindAnyObjectByType<SceneLoader>();
             }
         }
 
@@ -53,3 +61,4 @@ namespace Scene
         }
     }
 }
+//

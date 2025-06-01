@@ -4,6 +4,6 @@ public class GameOver:MonoBehaviour
 {
        public void BackToMainMenu()
        {
-              Scene.SceneManager.Instance.ChangeScene("Main Menu");
+              Scene.SceneLoader.Instance.ChangeScene("Main Menu");
        } 
 }

@@ -22,6 +22,9 @@ namespace Enemy
         public float PatrolDistance => patrolDistance;
         public float IdleTime => idleTime;
         public Vector3 StartPosition { get; protected set; }
+        
+        public event Action OnDeath;
+
 
         // State Machine
         protected EnemyStateMachine EnemyStateMachine;
@@ -78,6 +81,7 @@ namespace Enemy
             Life -= damage;
             if (Life <= 0)
             {
+                OnDeath?.Invoke();
                 Die();
             }
         }
@@ -88,13 +92,9 @@ namespace Enemy
 
         protected virtual void Die()
         {
-            // Handle death logic
-            //Debug.Log($"{gameObject.name} has died!");
-            // You could add death animation, drop items, etc.
             Destroy(gameObject);
         }
         
-        // Helper method for state transitions
         public void FlipSprite(float direction)
         {
             if (Mathf.Abs(direction) > 0.01f)

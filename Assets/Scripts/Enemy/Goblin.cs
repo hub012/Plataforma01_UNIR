@@ -27,7 +27,7 @@ namespace Enemy
         [Header("UI")]
         [SerializeField] private GoblinHealthBar healthBar;
 
-        
+       
         // Goblin-specific properties
         public float AggroRange => aggroRange;
         public float AttackRange => attackRange;
@@ -213,6 +213,11 @@ namespace Enemy
                 StartCoroutine(DamageFlash());
             }
             
+        }
+
+        public int GetCurrentHealth()
+        {
+            return Life;
         }
         private IEnumerator DamageFlash()
         {

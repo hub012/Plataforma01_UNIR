@@ -65,7 +65,7 @@ namespace Player.States
             }
 
             // Priority 2: Attack finished or button released
-            if (attackComplete || !player.PlayerControls.IsVerticalAttacking)
+            if (attackComplete)
             {
                 // Determine next state based on current input
                 if (player.PlayerControls.inputMove != Vector2.zero)
@@ -83,7 +83,8 @@ namespace Player.States
                 {
                     PlayerStateMachine.ChangeState(player.idleState);
                 }
-                return;
+                
+                player.PlayerControls.ResetVerticalAttack();
             }
         }
 

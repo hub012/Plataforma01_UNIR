@@ -9,9 +9,9 @@ namespace Map
         {
             Debug.Log(other.gameObject.name);
             if (!other.CompareTag("Player")) return;
-            if (Scene.SceneManager.Instance != null)
+            if (Scene.SceneLoader.Instance != null)
             {
-                Scene.SceneManager.Instance.ChangeScene("GameOver");
+                Scene.SceneLoader.Instance.ChangeScene("GameOver");
             }
         }
 

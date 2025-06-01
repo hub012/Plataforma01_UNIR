@@ -148,6 +148,7 @@ namespace Player
         {
             // Update current state
             _playerStateMachine.CurrentState?.LogicUpdate();
+            Debug.Log(_playerStateMachine.CurrentState);
             // Handle jump gravity modifiers
             HandleJumpGravity();
             // Handle sprite flipping
@@ -264,7 +265,7 @@ namespace Player
                 audioSource.PlayOneShot(deathSound, damageSoundVolume);
             }
             
-            Scene.SceneManager.Instance.ChangeScene("GameOver");
+            Scene.SceneLoader.Instance.ChangeScene("GameOver");
         }
 
         public void TakeDamage(int damage)
@@ -281,6 +282,7 @@ namespace Player
 
             if (currentHealth <= 0)
             {
+                Debug.Log(currentHealth);
               Die();
             }
         }

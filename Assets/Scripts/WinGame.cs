@@ -7,22 +7,22 @@ using UnityEngine;
 public class WinGame:MonoBehaviour
 {
     private float life;
+    [SerializeField] private Goblin goblin;
+
+    private void OnEnable()
+    {
+        goblin.OnDeath += YouWon;
+    }
+
+    private void OnDisable()
+    {
+        goblin.OnDeath -= YouWon;
+    }
     
-    private void Awake()
-    {
-        life = GetComponent<Goblin>().Life;
-    }
 
-    private void Update()
-    {
-        if (life <= 0)
-        {
-            YouWon();
-        }
-    }
 
-    public void YouWon()
+    public static void YouWon()
     {
-        Scene.SceneManager.Instance.ChangeScene("WinScene");
+        Scene.SceneLoader.Instance.ChangeScene("WinScene");
     }
 }

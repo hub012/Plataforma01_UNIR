@@ -30,7 +30,7 @@ namespace Player
 
                 playerInput.actions["Jump"].performed += OnJump;
 
-                playerInput.actions["VerticalAttack"].performed += OnVerticalAttack;
+                playerInput.actions["VerticalAttack"].started += OnVerticalAttack;
                 playerInput.actions["VerticalAttack"].canceled += OnVerticalAttack;
             }
         }
@@ -47,7 +47,7 @@ namespace Player
 
                 playerInput.actions["Jump"].performed -= OnJump;
 
-                playerInput.actions["VerticalAttack"].performed -= OnVerticalAttack;
+                playerInput.actions["VerticalAttack"].started -= OnVerticalAttack;
                 playerInput.actions["VerticalAttack"].canceled -= OnVerticalAttack;
             }
         }
@@ -72,8 +72,18 @@ namespace Player
 
         private void OnVerticalAttack(InputAction.CallbackContext context)
         {
-            IsVerticalAttacking = context.performed;
+            
+            if (context.started)
+            {
+                Debug.Log("Pressed Attack");
+                IsVerticalAttacking =true;
+            }
         }
+        public void ResetVerticalAttack()
+        {
+            IsVerticalAttacking = false;
+        }
+
 
         public void ResetJump()
         {

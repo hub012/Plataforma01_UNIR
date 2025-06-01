@@ -32,6 +32,7 @@ namespace Player.States
             if (player.PlayerControls.IsVerticalAttacking)
             {
                 PlayerStateMachine.ChangeState(player.verticalAttackState);
+                player.PlayerControls.ResetVerticalAttack();
                 return;
             }
 
