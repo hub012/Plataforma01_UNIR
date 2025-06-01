@@ -48,7 +48,11 @@ namespace Collectables
                 coinText.text = currentCoins.ToString();
             }
         }
-        
+
+        public int GetCollectedCoins()
+        {
+            return currentCoins;
+        }
         
         public void CollectCoin()
         {
