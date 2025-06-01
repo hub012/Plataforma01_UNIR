@@ -633,6 +633,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a3045c30041a4017b8154ef747c85c6, type: 3}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7ec99802bab864f14b94cddfc75ec33a, type: 3}
     - target: {fileID: 8143784489357671283, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
       propertyPath: m_SortingOrder
       value: 10
@@ -1582,6 +1590,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a3045c30041a4017b8154ef747c85c6, type: 3}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7ec99802bab864f14b94cddfc75ec33a, type: 3}
     - target: {fileID: 8143784489357671283, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
       propertyPath: m_SortingOrder
       value: 10
@@ -14302,6 +14318,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a3045c30041a4017b8154ef747c85c6, type: 3}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7ec99802bab864f14b94cddfc75ec33a, type: 3}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
       propertyPath: patrolDistance
       value: 2
       objectReference: {fileID: 0}
@@ -14665,6 +14689,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a3045c30041a4017b8154ef747c85c6, type: 3}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7ec99802bab864f14b94cddfc75ec33a, type: 3}
     - target: {fileID: 8143784489357671283, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
       propertyPath: m_SortingOrder
       value: 10
@@ -15622,6 +15654,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a3045c30041a4017b8154ef747c85c6, type: 3}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7ec99802bab864f14b94cddfc75ec33a, type: 3}
     - target: {fileID: 8143784489357671283, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
       propertyPath: m_SortingOrder
       value: 10
@@ -16107,6 +16147,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a3045c30041a4017b8154ef747c85c6, type: 3}
+    - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7ec99802bab864f14b94cddfc75ec33a, type: 3}
     - target: {fileID: 7566672299407613838, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
       propertyPath: patrolDistance
       value: 2
