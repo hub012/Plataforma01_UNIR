@@ -755,11 +755,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4624764714770575139, guid: 3c2940e6516024601863fec326e75660, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48.35811
+      value: 43.4
       objectReference: {fileID: 0}
     - target: {fileID: 4624764714770575139, guid: 3c2940e6516024601863fec326e75660, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.052349046
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4624764714770575139, guid: 3c2940e6516024601863fec326e75660, type: 3}
       propertyPath: m_LocalPosition.z
@@ -937,11 +937,11 @@ RectTransform:
   - {fileID: 1948040550}
   m_Father: {fileID: 301724926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -363.77902, y: 112.27671}
-  m_SizeDelta: {x: -750.1581, y: -296.1763}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 52.731, y: 85.2076}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &312591415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14719,7 +14719,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7547678195548248768, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 49.07
+      value: 35.99
       objectReference: {fileID: 0}
     - target: {fileID: 7547678195548248768, guid: ae299dcc9dbb34030828d5213ec2db5f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15079,7 +15079,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 97879445146982332, guid: e108c3a721b2640b1b5813d5fc8601d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 53.49
+      value: 49.79
       objectReference: {fileID: 0}
     - target: {fileID: 97879445146982332, guid: e108c3a721b2640b1b5813d5fc8601d9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15158,11 +15158,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 312591414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 33.6218, y: 35.222}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1073783336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15883,8 +15883,8 @@ MonoBehaviour:
   tutorialSteps:
   - stepName: Bienvenida
     instruction: Bienvenido a Wild Samurai! Aprendamos lo basico.
-    triggerPosition: {x: 0, y: 0, z: 0}
-    triggerRadius: 10
+    triggerPosition: {x: -6, y: 0, z: 0}
+    triggerRadius: 5
     requiresAction: 0
     actionRequired: 
     completed: 0
@@ -15892,8 +15892,8 @@ MonoBehaviour:
     displayDuration: 3
   - stepName: Movimiento
     instruction: Usa A/D para moverte de izquierda a derecha
-    triggerPosition: {x: 0, y: 0, z: 0}
-    triggerRadius: 10
+    triggerPosition: {x: -6, y: 0, z: 0}
+    triggerRadius: 5
     requiresAction: 1
     actionRequired: Move
     completed: 0
@@ -15901,8 +15901,8 @@ MonoBehaviour:
     displayDuration: 0
   - stepName: Saltando
     instruction: Presiona espacio para saltar
-    triggerPosition: {x: 9.61, y: 0, z: 0}
-    triggerRadius: 3
+    triggerPosition: {x: 3.77, y: 0, z: 0}
+    triggerRadius: 4.25
     requiresAction: 1
     actionRequired: Jump
     completed: 0
@@ -15910,16 +15910,16 @@ MonoBehaviour:
     displayDuration: 0
   - stepName: Sprinteando
     instruction: Mante Shift izq para sprintear
-    triggerPosition: {x: 20, y: 0, z: 0}
-    triggerRadius: 1.78
+    triggerPosition: {x: 14.7, y: 0, z: 0}
+    triggerRadius: 5.4
     requiresAction: 1
     actionRequired: Sprint
     completed: 0
     highlightTarget: {fileID: 0}
     displayDuration: 0
   - stepName: Anuncio de goblin
-    instruction: Hay un goblin  mas adelante preparate para el combate.
-    triggerPosition: {x: 30.5, y: 0, z: 0}
+    instruction: Hay un goblin mas adelante preparate para el combate.
+    triggerPosition: {x: 23.6, y: 0, z: 0}
     triggerRadius: 2
     requiresAction: 0
     actionRequired: 
@@ -15928,8 +15928,8 @@ MonoBehaviour:
     displayDuration: 3
   - stepName: Ataque
     instruction: Presiona B para atacar
-    triggerPosition: {x: 39, y: 0, z: 0}
-    triggerRadius: 5
+    triggerPosition: {x: 34.2, y: 0, z: 0}
+    triggerRadius: 4.31
     requiresAction: 1
     actionRequired: Attack
     completed: 0
@@ -15937,8 +15937,8 @@ MonoBehaviour:
     displayDuration: 0
   - stepName: Tomar  Moneda
     instruction: Puedes coleccionar monedas
-    triggerPosition: {x: 48, y: 0, z: 0}
-    triggerRadius: 2
+    triggerPosition: {x: 43.2, y: 0, z: 0}
+    triggerRadius: 2.92
     requiresAction: 1
     actionRequired: CoinPick
     completed: 0
@@ -15946,7 +15946,7 @@ MonoBehaviour:
     displayDuration: 0
   - stepName: Tomar Vida
     instruction: Puedes restaurar vida
-    triggerPosition: {x: 53.2, y: 0, z: 0}
+    triggerPosition: {x: 49.9, y: 0, z: 0}
     triggerRadius: 2
     requiresAction: 1
     actionRequired: GemPick
@@ -15954,8 +15954,8 @@ MonoBehaviour:
     highlightTarget: {fileID: 0}
     displayDuration: 0
   - stepName: Completado
-    instruction: Felicidades!!!
-    triggerPosition: {x: 60, y: 0, z: 0}
+    instruction: Felicidades! Completaste el tutorial.
+    triggerPosition: {x: 57.6, y: 0, z: 0}
     triggerRadius: 3
     requiresAction: 0
     actionRequired: 
@@ -15963,9 +15963,9 @@ MonoBehaviour:
     highlightTarget: {fileID: 0}
     displayDuration: 3
   - stepName: Anuncio inicio
-    instruction: Nivel 1
-    triggerPosition: {x: 67.2, y: 0, z: 0}
-    triggerRadius: 2
+    instruction: Inicio del Nivel 1. Buena Suerte
+    triggerPosition: {x: 65.2, y: 0, z: 0}
+    triggerRadius: 2.84
     requiresAction: 0
     actionRequired: 
     completed: 0
@@ -16656,7 +16656,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.000011444092, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1948040551
@@ -45399,6 +45399,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3006189736671734776, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 30f9592373c294b7bbfe7f591d65d849, type: 2}
     - target: {fileID: 4979835415956143401, guid: c6ac1bc40f3bf416e89f2112a1e8e12b, type: 3}
       propertyPath: jumpSpeed
       value: 16
