@@ -36,6 +36,11 @@ namespace Scene
             CheckSceneMusic(sceneName);
         }
 
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
+
         public void CheckSceneMusic(string sceneName)
         {
             switch (sceneName)
@@ -44,7 +49,7 @@ namespace Scene
                     Debug.Log("Main Scene");
                     MusicManager.Instance.PlayMainMenu();
                     break;
-                case "SampleScene":
+                case "Level1":
                     Debug.Log("Level 1");
                     MusicManager.Instance.PlayLevel1();
                     break;
